@@ -35,11 +35,23 @@ public class Bullet_behavior : MonoBehaviour
         {
             GameObject nburaco = Instantiate(buracoPrefab, transform);
             nburaco.transform.parent = null;
-            nburaco.transform.position = new Vector3(nburaco.transform.position.x, collision.transform.position.y, nburaco.transform.position.z);
-            nburaco.transform.eulerAngles = Vector3.zero;
+            switch (collision.transform.tag)
+            {
+                case "chao":
+                    nburaco.transform.position = new Vector3(nburaco.transform.position.x, collision.transform.position.y, nburaco.transform.position.z);
+                    break;
+                case "parede":
+                    nburaco.transform.position = new Vector3(nburaco.transform.position.x, nburaco.transform.position.y, collision.transform.position.z);
+                    break;
+                case "paredex":
+                    nburaco.transform.position = new Vector3(collision.transform.position.x, nburaco.transform.position.y, nburaco.transform.position.z);
+                    break;
+            }
             nburaco.transform.localScale = Vector3.one;
+            nburaco.transform.rotation = collision.transform.rotation;
             Destroy(nburaco, 10);
         }
         Destroy(gameObject);
     }
+
 }
