@@ -35,6 +35,7 @@ public class Bullet_behavior : MonoBehaviour
         {
             GameObject nburaco = Instantiate(buracoPrefab, transform);
             nburaco.transform.parent = null;
+            nburaco.transform.position = new Vector3(nburaco.transform.position.x, collision.transform.position.y, nburaco.transform.position.z);
             nburaco.transform.eulerAngles = Vector3.zero;
             nburaco.transform.localScale = Vector3.one;
             Destroy(nburaco, 10);
