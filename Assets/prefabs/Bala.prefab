@@ -111,7 +111,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 96
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &3941167857503212467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,3 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3280b48faedeebe498bd93a5eb3642de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buracoPrefab: {fileID: 936560862807237236, guid: 1e53ea29bfc3ea84485997efc7bf6eaf,
+    type: 3}

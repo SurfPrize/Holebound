@@ -13,8 +13,8 @@ public class Shoot_bullet : NetworkBehaviour
     private GameObject Spawnpoint;
 
     [SerializeField]
-    [Range(50f, 10000f)]
-    private float bulletSpeed=900;
+    [Range(1f, 15f)]
+    private float bulletSpeed=5;
 
     [SerializeField]
     [Range(1, 10)]
