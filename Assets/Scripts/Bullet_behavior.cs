@@ -6,17 +6,21 @@ using UnityEngine;
 
 public class Bullet_behavior : MonoBehaviour
 {
-    
+
     private Rigidbody rb;
+
+    [SerializeField]
+    private GameObject buracoPrefab;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         transform.parent = null;
         Destroy(gameObject, 10);
     }
 
-    public void Shoot_bullet(float speed,Transform pistola)
+    public void Shoot_bullet(float speed, Transform pistola)
     {
         if (rb == null)
         {
@@ -27,6 +31,14 @@ public class Bullet_behavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.transform.tag != "Vortex_Ball")
+        {
+            GameObject nburaco = Instantiate(buracoPrefab, transform);
+            nburaco.transform.parent = null;
+            nburaco.transform.eulerAngles = Vector3.zero;
+            nburaco.transform.localScale = Vector3.one;
+            Destroy(nburaco, 10);
+        }
         Destroy(gameObject);
     }
 }
