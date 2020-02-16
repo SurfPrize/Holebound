@@ -10,13 +10,16 @@ public class Shoot_bullet : NetworkBehaviour
     private GameObject bullet;
 
     [SerializeField]
-    [Range(0.5f, 10f)]
-    private float speed;
+    private GameObject Spawnpoint;
+
+    [SerializeField]
+    [Range(50f, 10000f)]
+    private float bulletSpeed=900;
 
     [SerializeField]
     [Range(1, 10)]
     private int clip_size;
-
+    
     private int cclip;
 
     [SerializeField]
@@ -29,7 +32,7 @@ public class Shoot_bullet : NetworkBehaviour
     [Range(0.2f, 2f)]
     private float reload_speed;
 
-    private bool allowed;
+    private bool allowed = true;
 
     // Start is called before the first frame update
     private void Start()
@@ -37,24 +40,30 @@ public class Shoot_bullet : NetworkBehaviour
         cclip = clip_size;
     }
 
-
-    private void OnMouseUp()
-    {
-        if (allowed)
-        {
-            Instantiate(bullet, transform.position, Quaternion.identity);
-            scooldown = shootspeed;
-            allowed = false;
-            StopCoroutine(reload());
-            StartCoroutine(shoot_sp(scooldown));
-        }
-
-    }
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.R))
         {
             StartCoroutine(reload());
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (allowed && cclip > 0)
+            {
+                Debug.Log("Shooting");
+                GameObject newbullet=Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity,transform);
+                newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed,Camera.main.transform);
+                scooldown = shootspeed;
+                cclip--;
+                allowed = false;
+                StopAllCoroutines();
+                StartCoroutine(shoot_sp(scooldown));
+            }
+            else
+            {
+                Debug.Log("NO! " + cclip);
+            }
         }
     }
 
@@ -69,19 +78,27 @@ public class Shoot_bullet : NetworkBehaviour
         }
         else
         {
-            allowed = true;
+            if (cclip != 0)
+                allowed = true;
         }
 
     }
 
     private IEnumerator reload()
     {
+        Debug.Log("Reloading " + cclip);
         if (cclip == clip_size)
+        {
+            Debug.Log("Clip full!");
             yield return null;
-
-        yield return new WaitForSeconds(reload_speed);
-        cclip++;
-        if (cclip < clip_size)
-            StartCoroutine(reload());
+        }
+        else
+        {
+            yield return new WaitForSeconds(reload_speed);
+            cclip++;
+            allowed = true;
+            if (cclip < clip_size)
+                StartCoroutine(reload());
+        }
     }
 }
