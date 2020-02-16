@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6834920833344644596}
+  - component: {fileID: 7101822447886052746}
   m_Layer: 0
   m_Name: Buraco wpivot
   m_TagString: Untagged
@@ -31,6 +32,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7101822447886052746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936560862807237236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
 --- !u!1001 &1041408058554517181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38,6 +54,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6834920833344644596}
     m_Modifications:
+    - target: {fileID: -8958980903466905738, guid: e1ce261c72b69664da1000643cb528be,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3000358796402312529, guid: e1ce261c72b69664da1000643cb528be,
         type: 3}
       propertyPath: m_Mesh

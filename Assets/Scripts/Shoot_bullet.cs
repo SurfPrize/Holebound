@@ -14,12 +14,12 @@ public class Shoot_bullet : NetworkBehaviour
 
     [SerializeField]
     [Range(1f, 15f)]
-    private float bulletSpeed=5;
+    private float bulletSpeed = 5;
 
     [SerializeField]
     [Range(1, 10)]
     private int clip_size;
-    
+
     private int cclip;
 
     [SerializeField]
@@ -34,35 +34,41 @@ public class Shoot_bullet : NetworkBehaviour
 
     private bool allowed = true;
 
+    private NetworkIdentity player;
+
     // Start is called before the first frame update
     private void Start()
     {
         cclip = clip_size;
+        player = transform.root.GetComponent<NetworkIdentity>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.R))
+        if (player.isLocalPlayer)
         {
-            StartCoroutine(reload());
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (allowed && cclip > 0)
+            if (Input.GetKeyUp(KeyCode.R))
             {
-                Debug.Log("Shooting");
-                GameObject newbullet=Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity,transform);
-                newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed,Camera.main.transform);
-                scooldown = shootspeed;
-                cclip--;
-                allowed = false;
-                StopAllCoroutines();
-                StartCoroutine(shoot_sp(scooldown));
+                StartCoroutine(reload());
             }
-            else
+
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("NO! " + cclip);
+                if (allowed && cclip > 0)
+                {
+                    Debug.Log("Shooting");
+                    GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity, transform);
+                    newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
+                    scooldown = shootspeed;
+                    cclip--;
+                    allowed = false;
+                    StopAllCoroutines();
+                    StartCoroutine(shoot_sp(scooldown));
+                }
+                else
+                {
+                    Debug.Log("NO! " + cclip);
+                }
             }
         }
     }
