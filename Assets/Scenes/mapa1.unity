@@ -133,9 +133,9 @@ GameObject:
   - component: {fileID: 54538957}
   - component: {fileID: 54538956}
   - component: {fileID: 54538955}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Cube (6)
-  m_TagString: Untagged
+  m_TagString: parede
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &229330905
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -505,9 +505,9 @@ GameObject:
   - component: {fileID: 430357140}
   - component: {fileID: 430357139}
   - component: {fileID: 430357138}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Cube (5)
-  m_TagString: Untagged
+  m_TagString: parede
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1033,11 +1033,31 @@ PrefabInstance:
       propertyPath: jumHeight
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4686715508509576189, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
+        type: 3}
+      propertyPath: WallCheck
+      value: 
+      objectReference: {fileID: 2141789670}
+    - target: {fileID: 4686715508509576189, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
+        type: 3}
+      propertyPath: WallDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686715508509576189, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
+        type: 3}
+      propertyPath: wallMask.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 4686715508509576191, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b44c2c95da9bd2442ac6466d0c80386a, type: 2}
+    - target: {fileID: 4795852113432336136, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8263121057518897971, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1150,9 +1170,9 @@ GameObject:
   - component: {fileID: 711373678}
   - component: {fileID: 711373677}
   - component: {fileID: 711373676}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: parede
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1654,9 +1674,9 @@ GameObject:
   - component: {fileID: 1527736003}
   - component: {fileID: 1527736002}
   - component: {fileID: 1527736001}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: parede
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1921,3 +1941,9 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804049095}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2141789670 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4795852113432336136, guid: 4d7c15c2c8f36564fb3901c1ca05ac18,
+    type: 3}
+  m_PrefabInstance: {fileID: 656617569}
+  m_PrefabAsset: {fileID: 0}
