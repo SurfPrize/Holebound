@@ -30,7 +30,6 @@ public class PlayerMovement : NetworkBehaviour
 
     public LayerMask groundMask;
     Vector3 velocity;
-<<<<<<< HEAD
     bool isGrounded;
     bool isWall;
     public Transform WallCheck;
@@ -38,41 +37,25 @@ public class PlayerMovement : NetworkBehaviour
     public LayerMask wallMask;
     private bool iswallrunning = false;
     private bool flag = false;
-    private void Update()
-    {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        isWall = Physics.CheckSphere(WallCheck.position, WallDistance, wallMask);
-        if (isGrounded && velocity.y < 0)
-        {            
-            velocity.y = -2f;
-        }
-        if (isGrounded || !isWall)
-        {
-            iswallrunning = false;
-            flag = false;
-            
-        }
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-=======
-    
-
-    private bool isGrounded;
-
-   
-
+  
     private void Update()
     {
         if (isLocalPlayer)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            isWall = Physics.CheckSphere(WallCheck.position, WallDistance, wallMask);
             if (isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
             }
+            if (isGrounded || !isWall)
+            {
+                iswallrunning = false;
+                flag = false;
+
+            }
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
->>>>>>> f5e44e3d8e897948c2b5f68e011cbc4c95cc47d8
 
             Vector3 move = transform.right * x + transform.forward * z;
             controller.Move(move * speed * Time.deltaTime);
@@ -88,7 +71,7 @@ public class PlayerMovement : NetworkBehaviour
         {
             playercam.enabled = false;
         }
-<<<<<<< HEAD
+
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         //Parkour andar na parede
@@ -117,7 +100,5 @@ public class PlayerMovement : NetworkBehaviour
         //Debug.Log("Está na parede:"+isWall);
         //Debug.Log("Está no chao:" + isGrounded);
         //Debug.Log(iswallrunning);
-=======
->>>>>>> f5e44e3d8e897948c2b5f68e011cbc4c95cc47d8
     }
 }
