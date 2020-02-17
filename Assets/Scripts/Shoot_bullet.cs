@@ -37,21 +37,16 @@ public class Shoot_bullet : NetworkBehaviour
 
     private bool allowed = true;
 
-    private NetworkIdentity player;
-    private NetworkIdentity ni;
-
     // Start is called before the first frame update
     private void Start()
     {
         cclip = clip_size;
-        ni = GetComponent<NetworkIdentity>();
-        player = transform.root.GetComponent<NetworkIdentity>();
     }
     
 
     private void Update()
     {
-        if (player.isLocalPlayer)
+        if (isLocalPlayer)
         {
             if (Input.GetKeyUp(KeyCode.R))
             {
