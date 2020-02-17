@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColliderRemove : MonoBehaviour
+public class ColliderRemove : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

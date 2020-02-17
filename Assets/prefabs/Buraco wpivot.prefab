@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6834920833344644596}
   - component: {fileID: 7101822447886052746}
+  - component: {fileID: 8880409038475413269}
   m_Layer: 0
   m_Name: Buraco wpivot
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2868996859061879791}
+  - {fileID: 1041408058554517054}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +48,25 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   m_AssetId: 
+--- !u!114 &8880409038475413269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936560862807237236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 1
 --- !u!1001 &1041408058554517181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1ce261c72b69664da1000643cb528be, type: 3}
---- !u!4 &2868996859061879791 stripped
+--- !u!4 &1041408058554517054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3000358796402312530, guid: e1ce261c72b69664da1000643cb528be,
     type: 3}
