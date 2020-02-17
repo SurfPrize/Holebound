@@ -32,9 +32,6 @@ public class Shoot_bullet : NetworkBehaviour
     [Range(0.2f, 2f)]
     private float reload_speed;
 
-    [SerializeField]
-    private GameObject buracoPrefab;
-
     private bool allowed = true;
 
     private NetworkIdentity player;
@@ -46,8 +43,18 @@ public class Shoot_bullet : NetworkBehaviour
         cclip = clip_size;
         ni = GetComponent<NetworkIdentity>();
         player = transform.root.GetComponent<NetworkIdentity>();
+        Assingauth();
     }
-    
+
+    private void Assingauth()
+    {
+        ni.AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+    }
+
+    private void Resignauth()
+    {
+        ni.RemoveClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+    }
 
     private void Update()
     {
@@ -62,7 +69,9 @@ public class Shoot_bullet : NetworkBehaviour
             {
                 if (allowed && cclip > 0)
                 {
+                    Assingauth();
                     Cmd_Shoot();
+                    Resignauth();
                 }
                 else
                 {
@@ -73,45 +82,11 @@ public class Shoot_bullet : NetworkBehaviour
     }
 
     [Command]
-    public void Cmd_createhole(Vector3 parede,Quaternion rot, GameObject bala, string tagg)
-    {
-        GameObject nburaco = Instantiate(buracoPrefab,bala.transform);
-        NetworkServer.Spawn(nburaco);
-        nburaco.transform.parent = null;
-        switch (tagg)
-        {
-            case "chao":
-                nburaco.transform.position = new Vector3(nburaco.transform.position.x, parede.y, nburaco.transform.position.z);
-                break;
-            case "parede":
-                nburaco.transform.position = new Vector3(nburaco.transform.position.x, nburaco.transform.position.y, parede.z);
-                break;
-            case "paredex":
-                nburaco.transform.position = new Vector3(parede.x, nburaco.transform.position.y, nburaco.transform.position.z);
-                break;
-            default:
-                break;
-        }
-        nburaco.transform.localScale = Vector3.one;
-        nburaco.transform.rotation = rot;
-        NetworkServer.Destroy(bala);
-        Destroy(bala);
-    }
-
-    [Command]
-    public void Cmd_Hitground(GameObject este)
-    {
-        NetworkServer.Destroy(este);
-        Destroy(este);
-    }
-
-    [Command]
     private void Cmd_Shoot()
     {
         Debug.Log("Shooting");
         GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity, transform);
         NetworkServer.Spawn(newbullet);
-       
         newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
         scooldown = shootspeed;
         cclip--;
