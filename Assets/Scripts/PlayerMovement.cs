@@ -30,8 +30,7 @@ public class PlayerMovement : NetworkBehaviour
 
     public LayerMask groundMask;
     Vector3 velocity;
-
-    private NetworkIdentity player;
+    
 
     private bool isGrounded;
 
