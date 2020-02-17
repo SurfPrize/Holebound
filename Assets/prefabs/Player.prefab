@@ -342,7 +342,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b44c2c95da9bd2442ac6466d0c80386a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -405,6 +405,11 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 2048
+  WallCheck: {fileID: 0}
+  WallDistance: 0.4
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4952156654754244465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +456,11 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3721677802364938116, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d3a10be0b2a7dac47a1b98ab7f872d44, type: 2}
     - target: {fileID: 3721677802364938118, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
         type: 3}
       propertyPath: m_LocalPosition.x
