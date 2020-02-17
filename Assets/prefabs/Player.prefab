@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 4686715508509576190}
   - component: {fileID: 4686715508509576191}
   - component: {fileID: 4686715508509576188}
+  - component: {fileID: -5387065666559904123}
   - component: {fileID: 4686715508509576189}
   - component: {fileID: 4952156654754244465}
   - component: {fileID: 5580927369954443844}
@@ -381,6 +382,28 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5387065666559904123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4686715508509576186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a766b9b84b3b78b46a02046d681e0d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  bullet: {fileID: 8168562365870014520, guid: afa494512d82eb94daf4329c77421fbb, type: 3}
+  Spawnpoint: {fileID: 4686715506995926332}
+  bulletSpeed: 5
+  clip_size: 0
+  shootspeed: 0
+  buracoPrefab: {fileID: 3000358796402312532, guid: e1ce261c72b69664da1000643cb528be,
+    type: 3}
+  reload_speed: 0
 --- !u!114 &4686715508509576189
 MonoBehaviour:
   m_ObjectHideFlags: 0

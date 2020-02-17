@@ -26,6 +26,9 @@ public class Shoot_bullet : NetworkBehaviour
     [Range(0.4f, 4f)]
     private float shootspeed;
 
+    [SerializeField]
+    private GameObject buracoPrefab;
+
     private float scooldown;
 
     [SerializeField]
@@ -34,18 +37,15 @@ public class Shoot_bullet : NetworkBehaviour
 
     private bool allowed = true;
 
-    private NetworkIdentity player;
-
     // Start is called before the first frame update
     private void Start()
     {
         cclip = clip_size;
-        player = transform.root.GetComponent<NetworkIdentity>();
     }
 
     private void Update()
     {
-        if (player.isLocalPlayer)
+        if (isLocalPlayer)
         {
             if (Input.GetKeyUp(KeyCode.R))
             {
@@ -56,14 +56,7 @@ public class Shoot_bullet : NetworkBehaviour
             {
                 if (allowed && cclip > 0)
                 {
-                    Debug.Log("Shooting");
-                    GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity, transform);
-                    newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
-                    scooldown = shootspeed;
-                    cclip--;
-                    allowed = false;
-                    StopAllCoroutines();
-                    StartCoroutine(shoot_sp(scooldown));
+                    Cmd_Shoot();
                 }
                 else
                 {
@@ -73,7 +66,53 @@ public class Shoot_bullet : NetworkBehaviour
         }
     }
 
-    private IEnumerator shoot_sp(float colldown)
+    [Command]
+    public void Cmd_createhole(Vector3 parede, Quaternion rot, GameObject bala, string tagg)
+    {
+        GameObject nburaco = Instantiate(buracoPrefab, bala.transform);
+        NetworkServer.Spawn(nburaco);
+        nburaco.transform.parent = null;
+        switch (tagg)
+        {
+            case "chao":
+                nburaco.transform.position = new Vector3(nburaco.transform.position.x, parede.y, nburaco.transform.position.z);
+                break;
+            case "parede":
+                nburaco.transform.position = new Vector3(nburaco.transform.position.x, nburaco.transform.position.y, parede.z);
+                break;
+            case "paredex":
+                nburaco.transform.position = new Vector3(parede.x, nburaco.transform.position.y, nburaco.transform.position.z);
+                break;
+            default:
+                break;
+        }
+        nburaco.transform.localScale = Vector3.one;
+        nburaco.transform.rotation = rot;
+        NetworkServer.Destroy(bala);
+        Destroy(bala);
+    }
+
+    [Command]
+    public void Cmd_Hitground(GameObject este)
+    {
+        NetworkServer.Destroy(este);
+        Destroy(este);
+    }
+
+    [Command]
+    private void Cmd_Shoot()
+    {
+        Debug.Log("Shooting");
+        GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity, transform);
+        NetworkServer.Spawn(newbullet);
+
+        newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
+        scooldown = shootspeed;
+        cclip--;
+
+    }
+
+        private IEnumerator shoot_sp(float colldown)
     {
         float timer = 0.1f;
         scooldown -= timer;
