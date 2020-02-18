@@ -26,6 +26,9 @@ public class Shoot_bullet : NetworkBehaviour
     [Range(0.4f, 4f)]
     private float shootspeed;
 
+    [SerializeField]
+    private GameObject buracoPrefab;
+
     private float scooldown;
 
     [SerializeField]
@@ -34,44 +37,26 @@ public class Shoot_bullet : NetworkBehaviour
 
     private bool allowed = true;
 
-    private NetworkIdentity player;
-    private NetworkIdentity ni;
-
     // Start is called before the first frame update
     private void Start()
     {
         cclip = clip_size;
-        ni = GetComponent<NetworkIdentity>();
-        player = transform.root.GetComponent<NetworkIdentity>();
-        Assingauth();
-    }
-
-    private void Assingauth()
-    {
-        ni.AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
-    }
-
-    private void Resignauth()
-    {
-        ni.RemoveClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
     }
 
     private void Update()
     {
-        if (player.isLocalPlayer)
+        if (isLocalPlayer)
         {
             if (Input.GetKeyUp(KeyCode.R))
             {
-                StartCoroutine(Reload());
+                StartCoroutine(reload());
             }
 
             if (Input.GetMouseButtonDown(0))
             {
                 if (allowed && cclip > 0)
                 {
-                    Assingauth();
                     Cmd_Shoot();
-                    Resignauth();
                 }
                 else
                 {
@@ -82,27 +67,59 @@ public class Shoot_bullet : NetworkBehaviour
     }
 
     [Command]
+    public void Cmd_createhole(Vector3 parede, Quaternion rot, GameObject bala, string tagg)
+    {
+        GameObject nburaco = Instantiate(buracoPrefab, bala.transform);
+        NetworkServer.Spawn(nburaco);
+        nburaco.transform.parent = null;
+        switch (tagg)
+        {
+            case "chao":
+                nburaco.transform.position = new Vector3(nburaco.transform.position.x, parede.y, nburaco.transform.position.z);
+                break;
+            case "parede":
+                nburaco.transform.position = new Vector3(nburaco.transform.position.x, nburaco.transform.position.y, parede.z);
+                break;
+            case "paredex":
+                nburaco.transform.position = new Vector3(parede.x, nburaco.transform.position.y, nburaco.transform.position.z);
+                break;
+            default:
+                break;
+        }
+        nburaco.transform.localScale = Vector3.one;
+        nburaco.transform.rotation = rot;
+        NetworkServer.Destroy(bala);
+        Destroy(bala);
+    }
+
+    [Command]
+    public void Cmd_Hitground(GameObject este)
+    {
+        NetworkServer.Destroy(este);
+        Destroy(este);
+    }
+
+    [Command]
     private void Cmd_Shoot()
     {
         Debug.Log("Shooting");
         GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity, transform);
         NetworkServer.Spawn(newbullet);
+
         newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
         scooldown = shootspeed;
         cclip--;
-        allowed = false;
-        StopAllCoroutines();
-        StartCoroutine(Shoot_sp(scooldown));
+
     }
 
-    private IEnumerator Shoot_sp(float colldown)
+        private IEnumerator shoot_sp(float colldown)
     {
         float timer = 0.1f;
         scooldown -= timer;
         if (scooldown > 0)
         {
             yield return new WaitForSeconds(timer);
-            StartCoroutine(Shoot_sp(scooldown));
+            StartCoroutine(shoot_sp(scooldown));
         }
         else
         {
@@ -112,7 +129,7 @@ public class Shoot_bullet : NetworkBehaviour
 
     }
 
-    private IEnumerator Reload()
+    private IEnumerator reload()
     {
         Debug.Log("Reloading " + cclip);
         if (cclip == clip_size)
@@ -126,7 +143,7 @@ public class Shoot_bullet : NetworkBehaviour
             cclip++;
             allowed = true;
             if (cclip < clip_size)
-                StartCoroutine(Reload());
+                StartCoroutine(reload());
         }
     }
 }

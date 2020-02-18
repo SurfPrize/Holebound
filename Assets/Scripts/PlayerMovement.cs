@@ -93,10 +93,8 @@ public class PlayerMovement : NetworkBehaviour
             }
             transform.position += direction * 4 * Time.deltaTime;
             velocity.y = velocity.y + 0.01f;
-            Debug.Log(Time.deltaTime);
             //Debug.Log(velocity.y);
         }
-        Debug.Log(gameObject.transform.position.y);
         //Debug.Log("Está na parede:"+isWall);
         //Debug.Log("Está no chao:" + isGrounded);
         //Debug.Log(iswallrunning);
