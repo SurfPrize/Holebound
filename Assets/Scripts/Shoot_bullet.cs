@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Hud_methods))]
 public class Shoot_bullet : NetworkBehaviour
 {
 
@@ -11,6 +11,8 @@ public class Shoot_bullet : NetworkBehaviour
 
     [SerializeField]
     private GameObject Spawnpoint;
+
+    private Hud_methods hdScript;
 
     [SerializeField]
     [Range(1f, 15f)]
@@ -41,12 +43,15 @@ public class Shoot_bullet : NetworkBehaviour
     private void Start()
     {
         cclip = clip_size;
+        hdScript = gameObject.GetComponent<Hud_methods>();
     }
 
     private void Update()
     {
         if (isLocalPlayer)
         {
+
+
             if (Input.GetKeyUp(KeyCode.R))
             {
                 StartCoroutine(reload());
@@ -108,11 +113,14 @@ public class Shoot_bullet : NetworkBehaviour
 
         newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
         scooldown = shootspeed;
+        StartCoroutine(shoot_sp(scooldown));
         cclip--;
+        hdScript.Updatehud(cclip);
+        
 
     }
 
-        private IEnumerator shoot_sp(float colldown)
+    private IEnumerator shoot_sp(float colldown)
     {
         float timer = 0.1f;
         scooldown -= timer;
@@ -141,6 +149,7 @@ public class Shoot_bullet : NetworkBehaviour
         {
             yield return new WaitForSeconds(reload_speed);
             cclip++;
+            hdScript.Updatehud(cclip);
             allowed = true;
             if (cclip < clip_size)
                 StartCoroutine(reload());
