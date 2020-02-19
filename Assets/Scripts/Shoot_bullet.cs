@@ -44,6 +44,16 @@ public class Shoot_bullet : NetworkBehaviour
     {
         cclip = clip_size;
         hdScript = gameObject.GetComponent<Hud_methods>();
+        foreach(Camera este in FindObjectsOfType<Camera>())
+        {
+            if (este.GetComponent<NetworkIdentity>() == null)
+                este.gameObject.SetActive(false);
+        }
+        foreach (AudioListener este in FindObjectsOfType<AudioListener>())
+        {
+            if (este.GetComponent<NetworkIdentity>() == null)
+                Destroy(este);
+        }
     }
 
     private void Update()
