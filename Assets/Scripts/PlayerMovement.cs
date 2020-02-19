@@ -64,8 +64,17 @@ public class PlayerMovement : NetworkBehaviour
             {
                 velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
             }
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+            if (!iswallrunning)
+            {
+                velocity.y += gravity * Time.deltaTime;
+                controller.Move(velocity * Time.deltaTime);
+            }
+            else if(iswallrunning)
+            {
+                velocity.y += -1f * Time.deltaTime;
+                controller.Move(velocity * Time.deltaTime);
+            }
+            
         }
         else
         {
@@ -81,18 +90,20 @@ public class PlayerMovement : NetworkBehaviour
         }
         if (iswallrunning)
         {
-            Vector3 direction = new Vector3(1,1,1);
+            float step = 0.0001f;
+            // Vector3 direction = new Vector3(1,1,1);
             if (flag==false)
             {
                 Debug.Log(velocity.y);
-                velocity.y = 2f + velocity.y;
+                velocity.y = 1f + velocity.y;
                 Debug.Log(velocity.y);
                 flag = true;
-                direction = new Vector3();
-                direction.Normalize();
+                //direction = new Vector3();
+                //direction.Normalize();
             }
-            transform.position += direction * 4 * Time.deltaTime;
-            velocity.y = velocity.y + 0.01f;
+            //transform.position += direction * 4 * Time.deltaTime;
+            velocity.y = velocity.y + step;
+            step = step + 0.0004f;
             //Debug.Log(velocity.y);
         }
         //Debug.Log("Está na parede:"+isWall);
