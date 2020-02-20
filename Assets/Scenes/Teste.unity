@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -267,6 +267,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Conjunto chao (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5438922374591571698, guid: 5477678f040aa0d43b4e4229d2cfb843,
+        type: 3}
+      propertyPath: m_TagString
+      value: chao
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5477678f040aa0d43b4e4229d2cfb843, type: 3}
 --- !u!1001 &537541781
@@ -289,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -460,7 +465,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -539,7 +544,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -618,7 +623,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -766,7 +771,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -845,7 +850,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -924,7 +929,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -1072,7 +1077,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -1151,7 +1156,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -1230,7 +1235,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
@@ -1356,6 +1361,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Conjunto chao (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5438922374591571698, guid: 5477678f040aa0d43b4e4229d2cfb843,
+        type: 3}
+      propertyPath: m_TagString
+      value: chao
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5477678f040aa0d43b4e4229d2cfb843, type: 3}
 --- !u!1001 &4476766932018523287
@@ -1378,7 +1388,7 @@ PrefabInstance:
     - target: {fileID: 8505815668139488554, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}
       propertyPath: m_TagString
-      value: parede
+      value: paredex
       objectReference: {fileID: 0}
     - target: {fileID: 9033698353368090675, guid: 48d08dda3b3a1744da25c245fb858dd4,
         type: 3}

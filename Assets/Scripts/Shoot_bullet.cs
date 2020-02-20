@@ -86,6 +86,7 @@ public class Shoot_bullet : NetworkBehaviour
     {
         GameObject nburaco = Instantiate(buracoPrefab, bala.transform);
         NetworkServer.Spawn(nburaco);
+        nburaco.transform.parent = null;
         switch (tagg)
         {
             case "chao":

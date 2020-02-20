@@ -13,7 +13,7 @@ public class Hole_behaviour : MonoBehaviour
     private void Awake()
     {
         Assign_Owner(transform.parent.root.gameObject);
-        transform.parent = null;
+       
         StartCoroutine(lifespan());
     }
 
