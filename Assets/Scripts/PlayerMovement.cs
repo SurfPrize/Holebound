@@ -69,11 +69,6 @@ public class PlayerMovement : NetworkBehaviour
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);
             }
-            else if(iswallrunning)
-            {
-                velocity.y += -1f * Time.deltaTime;
-                controller.Move(velocity * Time.deltaTime);
-            }
             
         }
         else
@@ -103,7 +98,7 @@ public class PlayerMovement : NetworkBehaviour
             }
             //transform.position += direction * 4 * Time.deltaTime;
             velocity.y = velocity.y + step;
-            step = step + 0.0004f;
+            step = step + 0.001f;
             //Debug.Log(velocity.y);
         }
         //Debug.Log("Está na parede:"+isWall);
