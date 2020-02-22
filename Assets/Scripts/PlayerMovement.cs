@@ -125,6 +125,10 @@ public class PlayerMovement : NetworkBehaviour
         }
         if (iswallrunning)
         {
+            if (Input.GetButtonDown("Jump"))
+            {
+
+            }
             float step = 0.0001f;
             // Vector3 direction = new Vector3(1,1,1);
             if (flag==false)
@@ -159,6 +163,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.4f, groundMask);
+        Debug.DrawRay(transform.position, Vector3.down, Color.white);
         return result;
     }
 
@@ -166,12 +171,14 @@ public class PlayerMovement : NetworkBehaviour
     {
         Ray ray = new Ray(transform.position, Vector3.right);
         bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.1f, wallMask);
+        Debug.DrawRay(transform.position, Vector3.right, Color.green);
         return result;
     }
     private bool CheckWallE()
     {
         Ray ray = new Ray(transform.position, Vector3.left);
-        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.1f, wallMask);
+        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y - 0.1f, wallMask);
+        Debug.DrawRay(transform.position, Vector3.left, Color.blue);
         return result;
     }
 }
