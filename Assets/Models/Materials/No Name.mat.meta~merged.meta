@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Models/Materials/No Name.mat.meta~merged.meta
 guid: 9c06d7f18faa7324d9a32a2b5b8a2931
 DefaultImporter:
+=======
+guid: b008f4b17058ada46b30ac4d38cc63f4
+NativeFormatImporter:
+>>>>>>> 84a49984a6e385629e245561101f754588a1d389:Assets/Scenes/Teste/LightingData.asset.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

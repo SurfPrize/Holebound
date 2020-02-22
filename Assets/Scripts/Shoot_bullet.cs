@@ -108,7 +108,7 @@ public class Shoot_bullet : NetworkBehaviour
     }
 
     [Command]
-    public void Cmd_Hitground(GameObject este)
+    public void Cmd_Destroy(GameObject este)
     {
         NetworkServer.Destroy(este);
         Destroy(este);

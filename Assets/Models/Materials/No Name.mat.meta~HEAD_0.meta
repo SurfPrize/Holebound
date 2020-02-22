@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Models/Materials/No Name.mat.meta~HEAD_0.meta
 guid: 4d409fc807a38ca49b14c2b559b142be
 DefaultImporter:
+=======
+guid: c178cbaef4f578c43bbc4cbae5baa5dc
+NativeFormatImporter:
+>>>>>>> 84a49984a6e385629e245561101f754588a1d389:Assets/Models/Materials/No Name.mat.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

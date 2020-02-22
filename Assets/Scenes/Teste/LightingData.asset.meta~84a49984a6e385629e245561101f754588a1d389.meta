@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scenes/Teste/LightingData.asset.meta~84a49984a6e385629e245561101f754588a1d389.meta
 guid: f797e320ece085a498603ee0780bcf3d
 DefaultImporter:
+=======
+guid: 381c4a0733249804eafbed9044208afc
+NativeFormatImporter:
+>>>>>>> 84a49984a6e385629e245561101f754588a1d389:Assets/hole mat.mat.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

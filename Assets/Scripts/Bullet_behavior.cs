@@ -9,9 +9,12 @@ public class Bullet_behavior : NetworkBehaviour
 {
 
     private Rigidbody rb;
-
     private Shoot_bullet father;
 
+    public GameObject GetBOwner()
+    {
+        return father.gameObject;
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -39,7 +42,7 @@ public class Bullet_behavior : NetworkBehaviour
         {
             father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
         }
-        father.Cmd_Hitground(gameObject);
+        father.Cmd_Destroy(gameObject);
     }
 
 }
