@@ -489,7 +489,7 @@ MonoBehaviour:
   bulletSpeed: 15
   clip_size: 3
   shootspeed: 4
-  buracoPrefab: {fileID: 1397864754216483395, guid: 95ba8c2b963a3e246b624434b6229930,
+  buracoPrefab: {fileID: 1397864754216483395, guid: bfc1944f2c15a0040ab070eef5d8ae4b,
     type: 3}
   reload_speed: 2
 --- !u!1001 &4131950871023477136

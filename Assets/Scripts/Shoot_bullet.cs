@@ -19,6 +19,10 @@ public class Shoot_bullet : NetworkBehaviour
     private float bulletSpeed = 5;
 
     [SerializeField]
+    [Range(1f, 15f)]
+    private float holesize = 5;
+
+    [SerializeField]
     [Range(1, 10)]
     private int clip_size;
 
@@ -101,7 +105,7 @@ public class Shoot_bullet : NetworkBehaviour
             default:
                 break;
         }
-        nburaco.transform.localScale = Vector3.one;
+        nburaco.transform.localScale = Vector3.one *holesize;
         nburaco.transform.rotation = rot;
         NetworkServer.Destroy(bala);
         Destroy(bala);
