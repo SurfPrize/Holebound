@@ -106,39 +106,38 @@ public class PlayerMovement : NetworkBehaviour
             }
             Debug.Log("Speed:" + speed);
             velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
-            //Parkour andar na parede
-            if ((isWallD && !isGrounded) || (isWallE && !isGrounded))
+        controller.Move(velocity * Time.deltaTime);
+        //Parkour andar na parede
+        if ((isWallD && !isGrounded) || (isWallE && !isGrounded))
+        {
+            iswallrunning = true;
+        }
+        if (iswallrunning)
+        {
+            if (Input.GetButtonDown("Jump"))
             {
-                iswallrunning = true;
+
+                move = transform.right * jumHeight * -2 + transform.forward * jumHeight * -2;
             }
-            if (iswallrunning)
+            float step = 0.0001f;
+            // Vector3 direction = new Vector3(1,1,1);
+            if (flag==false)
             {
-                if (Input.GetButtonDown("Jump"))
-                {
-
-                    move = transform.right * jumHeight * -2 + transform.forward * jumHeight * -2;
-                }
-                float step = 0.0001f;
-                // Vector3 direction = new Vector3(1,1,1);
-                if (flag == false)
-                {
-                    Debug.Log(velocity.y);
-                    velocity.y = 1f + velocity.y;
-                    Debug.Log(velocity.y);
-                    flag = true;
-                    //direction = new Vector3();
-                    //direction.Normalize();
-                }
-                //transform.position += direction * 4 * Time.deltaTime;
-                velocity.y = velocity.y + step;
-                step = step + 0.001f;
-                //Debug.Log(velocity.y);
+                Debug.Log(velocity.y);
+                velocity.y = 1f + velocity.y;
+                Debug.Log(velocity.y);
+                flag = true;
+                //direction = new Vector3();
+                //direction.Normalize();
             }
-            //Debug.Log("Está na parede:"+isWall);
-            //Debug.Log("Está no chao:" + isGrounded);
-            //Debug.Log(iswallrunning);
-
+            //transform.position += direction * 4 * Time.deltaTime;
+            velocity.y = velocity.y + step;
+            step = step + 0.001f;
+            //Debug.Log(velocity.y);
+        }
+        //Debug.Log("Está na parede:"+isWall);
+        //Debug.Log("Está no chao:" + isGrounded);
+        //Debug.Log(iswallrunning);
         }
         else
         {
