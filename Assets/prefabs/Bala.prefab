@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3280b48faedeebe498bd93a5eb3642de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buracoPrefab: {fileID: 936560862807237236, guid: 1e53ea29bfc3ea84485997efc7bf6eaf,
-    type: 3}
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &2475016018794078353
 MonoBehaviour:
   m_ObjectHideFlags: 0
