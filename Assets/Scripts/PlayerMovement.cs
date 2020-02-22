@@ -11,9 +11,13 @@ public class PlayerMovement : NetworkBehaviour
     private Camera playercam;
 
     [SerializeField]
-    [Range(0.1f,20)]
+    [Range(0.1f, 20)]
     private float speed = 12f;
-
+    private float speedInicial;
+    [SerializeField]
+    [Range(0.1f, 20)]
+    private float Sprintspeed = 5f;
+    private bool isRunning;
     [SerializeField]
     [Range(-0.1f, -20)]
     private float gravity = -9.81f;
@@ -31,24 +35,32 @@ public class PlayerMovement : NetworkBehaviour
     public LayerMask groundMask;
     Vector3 velocity;
     bool isGrounded;
-    bool isWall;
+    bool isWallD;
+    bool isWallE;
     public Transform WallCheck;
     public float WallDistance = 0.4f;
     public LayerMask wallMask;
     private bool iswallrunning = false;
     private bool flag = false;
-  
+
+    private void Start()
+    {
+        StartCoroutine(stopbhop());
+        speedInicial = speed;
+    }
     private void Update()
     {
+         
         if (isLocalPlayer)
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-            isWall = Physics.CheckSphere(WallCheck.position, WallDistance, wallMask);
+            isGrounded = CheckGround();
+            isWallD = CheckWallD();
+            isWallE = CheckWallE();
             if (isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
             }
-            if (isGrounded || !isWall)
+            if (isGrounded || (!isWallD && !isWallE))
             {
                 iswallrunning = false;
                 flag = false;
@@ -63,13 +75,41 @@ public class PlayerMovement : NetworkBehaviour
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
+                var vn = velocity;
+                vn = vn.normalized;
+                //.Log(vn);
+                velocity += new Vector3(vn.x *2f,0,vn.z *2f);
+                //Debug.Log("Velocity.x =" + vn.x);
+                //Debug.Log("Velocity.z =" + vn.z);
+            }
+            if (Input.GetButtonDown("Jump") && !isGrounded && ((isWallD || isWallE)))
+            {
+                Debug.Log("Saltou Parede");
+                move = transform.right * jumHeight * -2 + transform.forward * jumHeight * -2;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
+            {
+                isRunning = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isRunning = false;
+                
+            }
+            if (isRunning)
+            {
+                speed = speedInicial + Sprintspeed;
+            }
+            else if (!isRunning)
+            {
+                speed = speedInicial;
             }
             if (!iswallrunning)
             {
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);
             }
-            
+            Debug.Log("Speed:" + speed);
         }
         else
         {
@@ -79,7 +119,7 @@ public class PlayerMovement : NetworkBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         //Parkour andar na parede
-        if (isWall && !isGrounded)
+        if ((isWallD && !isGrounded) || (isWallE && !isGrounded))
         {
             iswallrunning = true;
         }
@@ -104,5 +144,34 @@ public class PlayerMovement : NetworkBehaviour
         //Debug.Log("Está na parede:"+isWall);
         //Debug.Log("Está no chao:" + isGrounded);
         //Debug.Log(iswallrunning);
+    }
+    private IEnumerator stopbhop()
+    {
+        if (isGrounded)
+           velocity = Vector3.zero;
+
+       yield return  new WaitForSeconds(0.3f);
+         StartCoroutine(stopbhop());
+    }
+
+
+    private bool CheckGround()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.4f, groundMask);
+        return result;
+    }
+
+    private bool CheckWallD()
+    {
+        Ray ray = new Ray(transform.position, Vector3.right);
+        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.1f, wallMask);
+        return result;
+    }
+    private bool CheckWallE()
+    {
+        Ray ray = new Ray(transform.position, Vector3.left);
+        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.1f, wallMask);
+        return result;
     }
 }

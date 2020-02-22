@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Models/Materials/No Name.mat.meta
+guid: c178cbaef4f578c43bbc4cbae5baa5dc
+=======
+guid: b008f4b17058ada46b30ac4d38cc63f4
+>>>>>>> 84a49984a6e385629e245561101f754588a1d389:Assets/Scenes/Teste/LightingData.asset.meta
+=======
+guid: c178cbaef4f578c43bbc4cbae5baa5dc
+>>>>>>> 84a49984a6e385629e245561101f754588a1d389
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
