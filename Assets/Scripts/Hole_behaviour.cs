@@ -8,12 +8,16 @@ public class Hole_behaviour : MonoBehaviour
 
     [SerializeField]
     [Range(1, 10)]
-    private int lifetime = 5;
+    private readonly int lifetime = 5;
+
+    [SerializeField]
+    [Range(0.4f, 5f)]
+    private readonly float rotspeed = 3;
 
     private void Awake()
     {
         Assign_Owner(transform.parent.root.gameObject);
-       
+        StartCoroutine(rotate());
         StartCoroutine(lifespan());
     }
 
@@ -25,8 +29,16 @@ public class Hole_behaviour : MonoBehaviour
 
     private IEnumerator lifespan()
     {
+
         yield return new WaitForSeconds(lifetime);
         Owner.GetComponent<Shoot_bullet>().Cmd_Destroy(gameObject);
 
     }
+
+    private IEnumerator rotate()
+    {
+        yield return new WaitForSeconds(0.0001f);
+        transform.Rotate(rotspeed, rotspeed, rotspeed);
+        StartCoroutine(rotate());
+    } 
 }
