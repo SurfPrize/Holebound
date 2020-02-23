@@ -50,16 +50,13 @@ public class PlayerMovement : NetworkBehaviour
     }
     private void Update()
     {
-         
+
         if (isLocalPlayer)
         {
             isGrounded = CheckGround();
             isWallD = CheckWallD();
             isWallE = CheckWallE();
-            if (isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f;
-            }
+            
             if (isGrounded || (!isWallD && !isWallE))
             {
                 iswallrunning = false;
@@ -77,11 +74,8 @@ public class PlayerMovement : NetworkBehaviour
                 velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
                 var vn = velocity;
                 vn = vn.normalized;
-                //.Log(vn);
-                velocity += new Vector3(vn.x *2f,0,vn.z *2f);
-                //Debug.Log("Velocity.x =" + vn.x);
-                //Debug.Log("Velocity.z =" + vn.z);
-            }            
+                velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
+            }
             if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
             {
                 isRunning = true;
@@ -89,7 +83,7 @@ public class PlayerMovement : NetworkBehaviour
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isRunning = false;
-                
+
             }
             if (isRunning)
             {
@@ -106,76 +100,73 @@ public class PlayerMovement : NetworkBehaviour
             }
             Debug.Log("Speed:" + speed);
             velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-        //Parkour andar na parede
-        if ((isWallD && !isGrounded) || (isWallE && !isGrounded))
-        {
-            iswallrunning = true;
-        }
-        if (iswallrunning)
-        {
-            if (Input.GetButtonDown("Jump"))
+            controller.Move(velocity * Time.deltaTime);
+            //Parkour andar na parede
+            if ((isWallD && !isGrounded) || (isWallE && !isGrounded))
+            {
+                if (Input.GetButtonDown("Jump"))
+                {
+                    controller.Move(new Vector3());
+                }
+                iswallrunning = true;
+            }
+            if (iswallrunning)
             {
 
-                move = transform.right * jumHeight * -2 + transform.forward * jumHeight * -2;
+                float step = 0.0001f;
+
+                if (flag == false)
+                {
+                    Debug.Log(velocity.y);
+                    velocity.y = 1f + velocity.y;
+                    Debug.Log(velocity.y);
+                    flag = true;
+
+                }
+
+                velocity.y = velocity.y + step;
+                step = step + 0.001f;               
+
             }
-            float step = 0.0001f;
-            // Vector3 direction = new Vector3(1,1,1);
-            if (flag==false)
-            {
-                Debug.Log(velocity.y);
-                velocity.y = 1f + velocity.y;
-                Debug.Log(velocity.y);
-                flag = true;
-                //direction = new Vector3();
-                //direction.Normalize();
-            }
-            //transform.position += direction * 4 * Time.deltaTime;
-            velocity.y = velocity.y + step;
-            step = step + 0.001f;
-            //Debug.Log(velocity.y);
-        }
-        //Debug.Log("Está na parede:"+isWall);
-        //Debug.Log("Está no chao:" + isGrounded);
-        //Debug.Log(iswallrunning);
+
+            
         }
         else
         {
             playercam.enabled = false;
-        }
-
+        }       
         
     }
     private IEnumerator stopbhop()
     {
         if (isGrounded)
-           velocity = Vector3.zero;
+            velocity = Vector3.zero;
 
-       yield return  new WaitForSeconds(0.3f);
-         StartCoroutine(stopbhop());
+        yield return new WaitForSeconds(0.3f);
+        StartCoroutine(stopbhop());
     }
 
 
-    private bool CheckGround()
+    public bool CheckGround()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
-        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.4f, groundMask);
-        Debug.DrawRay(transform.position, Vector3.down, Color.white);
-        return result;
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, transform.up * -groundDistance, Color.blue);
+        return Physics.Raycast(transform.position, transform.up * -1, out hit, 2, groundMask);
     }
 
-    private bool CheckWallD()
+    public bool CheckWallD()
     {
-        Ray ray = new Ray(transform.position, Vector3.right);
-        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y + 0.1f, wallMask);
-        Debug.DrawRay(transform.position, Vector3.right, Color.green);
-        return result;
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, transform.right * WallDistance, Color.green);
+        return Physics.Raycast(transform.position, transform.right, out hit, 1, wallMask);
     }
-    private bool CheckWallE()
+    public bool CheckWallE()
     {
-        Ray ray = new Ray(transform.position, Vector3.left);
-        bool result = Physics.Raycast(ray, GetComponent<Collider>().bounds.extents.y - 0.1f, wallMask);
-        Debug.DrawRay(transform.position, Vector3.left, Color.blue);
-        return result;
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, transform.right * -WallDistance, Color.black);
+        return Physics.Raycast(transform.position, transform.right * -1, out hit, 1, wallMask);
     }
 }
