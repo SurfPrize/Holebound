@@ -13,10 +13,7 @@ public class Shoot_bullet : NetworkBehaviour
     private GameObject Spawnpoint;
 
     private Hud_methods hdScript;
-
-    [SerializeField]
-    [Range(1f, 15f)]
-    private float bulletSpeed = 5;
+    
 
     [SerializeField]
     [Range(1f, 15f)]
@@ -24,13 +21,13 @@ public class Shoot_bullet : NetworkBehaviour
 
     [SerializeField]
     [Range(1, 10)]
-    private int clip_size;
+    private int clip_size=5;
 
     private int cclip;
 
     [SerializeField]
-    [Range(0.4f, 4f)]
-    private float shootspeed;
+    [Range(0.1f, 15f)]
+    private float shootspeed=5;
 
     [SerializeField]
     private GameObject buracoPrefab;
@@ -39,7 +36,7 @@ public class Shoot_bullet : NetworkBehaviour
 
     [SerializeField]
     [Range(0.2f, 2f)]
-    private float reload_speed;
+    private float reload_speed=0.4f;
 
     private bool allowed = true;
 
@@ -122,10 +119,9 @@ public class Shoot_bullet : NetworkBehaviour
     private void Cmd_Shoot()
     {
         Debug.Log("Shooting");
-        GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, Quaternion.identity, transform);
+        GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, transform.rotation, transform) as GameObject;
         NetworkServer.Spawn(newbullet);
-
-        newbullet.GetComponent<Bullet_behavior>().Shoot_bullet(bulletSpeed, Camera.main.transform);
+        
         scooldown = shootspeed;
         StartCoroutine(shoot_sp(scooldown));
         cclip--;

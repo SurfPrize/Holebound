@@ -6,24 +6,24 @@ using UnityEngine;
 public class ColliderRemove : NetworkBehaviour
 {
     private Collider current;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer != 0)
         {
             current = other;
-            StartCoroutine(falling(other));
-            Debug.Log("HES IN");
-
+            StartCoroutine(Falling(other));
         }
     }
 
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
-        current.gameObject.layer = 9;
+        if (current != null)
+            current.gameObject.layer = 9;
     }
 
-    private IEnumerator falling(Collider este)
+    private IEnumerator Falling(Collider este)
     {
         este.gameObject.layer = 8;
         yield return new WaitForSeconds(0.3f);

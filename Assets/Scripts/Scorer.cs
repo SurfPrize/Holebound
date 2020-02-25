@@ -13,6 +13,8 @@ public class Scorer : MonoBehaviour
     [Range(1, 5)]
     private int lives = 3;
 
+    private Shoot_bullet commands;
+
     [SerializeField]
     [Range(-80, -5)]
     private readonly float outofbounds_limit = -20;
@@ -20,7 +22,7 @@ public class Scorer : MonoBehaviour
     void Start()
     {
         spawns = FindObjectsOfType<NetworkStartPosition>();
-
+        commands = gameObject.GetComponent<Shoot_bullet>();
     }
 
     private IEnumerator Bounds_check()
@@ -40,7 +42,7 @@ public class Scorer : MonoBehaviour
             Last_hole = null;
             foreach(Hole_behaviour este in FindObjectsOfType<Hole_behaviour>())
             {
-                Destroy(este.gameObject);
+                commands.Cmd_Destroy(este.gameObject);
             }
             if (lives == 0)
             {

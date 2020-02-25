@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 5580927369954443844}
   - component: {fileID: -3224507994038465605}
   - component: {fileID: 3805945233712013142}
+  - component: {fileID: 4841380161124358226}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -408,7 +409,7 @@ MonoBehaviour:
   syncInterval: 0.1
   controller: {fileID: 4686715508509576188}
   playercam: {fileID: 4686715506726507218}
-  speed: 6
+  speed: 8.2
   Sprintspeed: 5
   gravity: -4.905
   jumHeight: 3
@@ -416,12 +417,12 @@ MonoBehaviour:
   groundDistance: 1
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2048
   WallCheck: {fileID: 922586300903092088}
   WallDistance: 0.5
   wallMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 8192
 --- !u!114 &4952156654754244465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,13 +488,26 @@ MonoBehaviour:
   syncInterval: 0.1
   bullet: {fileID: 8168562365870014520, guid: afa494512d82eb94daf4329c77421fbb, type: 3}
   Spawnpoint: {fileID: 7909682939645884952}
-  bulletSpeed: 15
-  holesize: 7
-  clip_size: 3
-  shootspeed: 4
-  buracoPrefab: {fileID: 1397864754216483395, guid: 95ba8c2b963a3e246b624434b6229930,
+  bulletSpeed: 5
+  holesize: 5
+  clip_size: 5
+  shootspeed: 2
+  buracoPrefab: {fileID: 1397864754216483395, guid: bfc1944f2c15a0040ab070eef5d8ae4b,
     type: 3}
-  reload_speed: 2
+  reload_speed: 0.4
+--- !u!114 &4841380161124358226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4686715508509576186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cea19a6c2bfe11489459e173fc6c554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 3
 --- !u!1001 &4131950871023477136
 PrefabInstance:
   m_ObjectHideFlags: 0
