@@ -11,9 +11,14 @@ public class Bullet_behavior : NetworkBehaviour
     private Rigidbody rb;
     private Shoot_bullet father;
 
+    [SerializeField]
+    [Range(10f, 200f)]
+    private float speed = 20;
+
     public GameObject GetBOwner()
     {
         return father.gameObject;
+
     }
 
     // Start is called before the first frame update
@@ -24,16 +29,17 @@ public class Bullet_behavior : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         transform.parent = null;
         Destroy(gameObject, 10);
+        transform.rotation=father.transform.rotation;
+        Debug.Log(new Vector3(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, 0));
     }
 
-    public void Shoot_bullet(float speed, Transform pistola)
+
+
+
+    private void Update()
     {
+        rb.AddForce(transform.forward*2000);
        
-        if (rb == null)
-        {
-            rb = GetComponent<Rigidbody>();
-        }
-        rb.velocity = pistola.TransformDirection(new Vector3(0, 0, speed));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,7 +48,7 @@ public class Bullet_behavior : NetworkBehaviour
         {
             father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
         }
-        father.Cmd_Destroy(gameObject);
+
     }
 
 }
