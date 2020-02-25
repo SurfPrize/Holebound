@@ -171,6 +171,7 @@ MonoBehaviour:
   syncInterval: 0.1
   mouseSensitivity: 160
   playerBody: {fileID: 4686715508509576161}
+  playergameobject: {fileID: 4686715508509576186}
   player: {fileID: 4952156654754244465}
 --- !u!114 &4686715506726507222
 MonoBehaviour:
@@ -384,7 +385,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.4
+  m_Height: 2
   m_Radius: 0.5000001
   m_SlopeLimit: 45
   m_StepOffset: 0.6
@@ -412,7 +413,7 @@ MonoBehaviour:
   gravity: -4.905
   jumHeight: 3
   groundCheck: {fileID: 4686715506995926335}
-  groundDistance: 0.5
+  groundDistance: 1
   groundMask:
     serializedVersion: 2
     m_Bits: 2048

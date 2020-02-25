@@ -8,18 +8,21 @@ public class MouseLook : NetworkBehaviour
     public float mouseSensitivity = 100f;
     public Transform playerBody;
     private float xRotation = 0f;
+    public GameObject playergameobject;
+    private PlayerMovement playermovent;
     [SerializeField]
     private NetworkIdentity player;
 
     // Start is called before the first frame update
     private void Start()
     {
+        
         if (!player.isLocalPlayer)
         {
             return;
         }
         Cursor.lockState = CursorLockMode.Locked;
-
+        playermovent = playergameobject.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -34,7 +37,23 @@ public class MouseLook : NetworkBehaviour
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        
+        if (playermovent.CheckWallD() && !playermovent.CheckGround())
+        {
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(xRotation, 0f, 10f), Time.deltaTime * 1f);
+            //transform.localRotation = Quaternion.Euler(xRotation, 0f, 10f);
+        }
+        else if (playermovent.CheckWallE() && !playermovent.CheckGround())
+        {
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(xRotation, 0f, -10f), Time.deltaTime * 1f);
+            //transform.localRotation = Quaternion.Euler(xRotation, 0f, -10f);
+        }
+        else if(playermovent.CheckGround() || (!playermovent.CheckWallD() && !playermovent.CheckWallE()))
+        {
+            
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
+        //transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
 
     }
