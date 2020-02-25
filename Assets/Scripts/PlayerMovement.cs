@@ -37,15 +37,18 @@ public class PlayerMovement : NetworkBehaviour
     bool isGrounded;
     bool isWallD;
     bool isWallE;
+    bool isWallFoward;
     public Transform WallCheck;
     public float WallDistance = 0.4f;
     public LayerMask wallMask;
+    private bool iswallclimbing = false;
     private bool iswallrunning = false;
-    private bool flag = false;
+    private bool flagwallrunning = false;
+    private bool flagwallclimbing = false;
 
     private void Start()
     {
-        StartCoroutine(stopbhop());
+        //StartCoroutine(stopbhop());
         speedInicial = speed;
     }
     private void Update()
@@ -56,6 +59,11 @@ public class PlayerMovement : NetworkBehaviour
             isGrounded = CheckGround();
             isWallD = CheckWallD();
             isWallE = CheckWallE();
+            isWallFoward = CheckWallFrente();
+            //if (!isGrounded && isWallFoward)
+            //{
+            //    iswallclimbing = true;
+            //}
             if (isGrounded && velocity.y ==0)
             {
                 velocity.y = -1f;
@@ -63,7 +71,7 @@ public class PlayerMovement : NetworkBehaviour
             if (isGrounded || (!isWallD && !isWallE))
             {
                 iswallrunning = false;
-                flag = false;
+                flagwallrunning = false;
 
             }
             float x = Input.GetAxis("Horizontal");
@@ -101,16 +109,13 @@ public class PlayerMovement : NetworkBehaviour
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);
             }
-            Debug.Log("Speed:" + speed);
+           // Debug.Log("Speed:" + speed);
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
             //Parkour andar na parede
-            if ((isWallD && !isGrounded) || (isWallE && !isGrounded))
+            if ((isWallD && !isGrounded) || (isWallE && !isGrounded) && !iswallclimbing)
             {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    controller.Move(new Vector3());
-                }
+               
                 iswallrunning = true;
             }
             if (iswallrunning)
@@ -118,36 +123,58 @@ public class PlayerMovement : NetworkBehaviour
 
                 float step = 0.0001f;
 
-                if (flag == false)
+                if (flagwallrunning == false)
                 {
-                    Debug.Log(velocity.y);
+                    //Debug.Log(velocity.y);
                     velocity.y = 1f + velocity.y;
-                    Debug.Log(velocity.y);
-                    flag = true;
+                    //Debug.Log(velocity.y);
+                    flagwallrunning = true;
 
                 }
 
                 velocity.y = velocity.y + step;
-                step = step + 0.001f;               
+                step = step + 0.001f;
+                
 
             }
+            //if (iswallclimbing)
+            //{
+            //    float step = 0.0001f;
 
-            
+            //    if (flagwallclimbing == false)
+            //    {
+            //        //Debug.Log(velocity.y);
+            //        velocity.y = 2f + velocity.y;
+            //        //Debug.Log(velocity.y);
+            //        flagwallclimbing = true;
+
+            //    }
+
+            //    velocity.y = velocity.y + step;
+            //    step = step + 0.001f;
+
+            //    if (Input.GetButtonDown("Jump"))
+            //    {
+            //        controller.Move(new Vector3());
+            //    }
+            //}
+
+            Debug.Log("IsWallclimbing: " + iswallclimbing);
         }
         else
         {
             playercam.enabled = false;
-        }       
-        
+        }
+        Debug.Log("Is wallrunning:" + iswallrunning);
     }
-    private IEnumerator stopbhop()
-    {
-        if (isGrounded)
-            velocity = Vector3.zero;
+    //private IEnumerator stopbhop()
+    //{
+    //    if (isGrounded)
+    //        velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(0.3f);
-        StartCoroutine(stopbhop());
-    }
+    //    yield return new WaitForSeconds(0.3f);
+    //    StartCoroutine(stopbhop());
+    //}
 
 
     public bool CheckGround()
@@ -171,5 +198,12 @@ public class PlayerMovement : NetworkBehaviour
 
         Debug.DrawRay(transform.position, transform.right * -WallDistance, Color.black);
         return Physics.Raycast(transform.position, transform.right * -1, out hit, 1, wallMask);
+    }
+    public bool CheckWallFrente()
+    {
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, transform.forward * WallDistance, Color.green);
+        return Physics.Raycast(transform.position, transform.right, out hit, 1, wallMask);
     }
 }
