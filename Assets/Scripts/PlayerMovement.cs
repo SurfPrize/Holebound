@@ -56,7 +56,10 @@ public class PlayerMovement : NetworkBehaviour
             isGrounded = CheckGround();
             isWallD = CheckWallD();
             isWallE = CheckWallE();
-            
+            if (isGrounded && velocity.y ==0)
+            {
+                velocity.y = -1f;
+            }
             if (isGrounded || (!isWallD && !isWallE))
             {
                 iswallrunning = false;
