@@ -41,13 +41,13 @@ public class MouseLook : NetworkBehaviour
 
         if (playermovent.CheckWallD() && !playermovent.CheckGround())
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 50f), Time.deltaTime * 1f);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 20f), Time.deltaTime * 1f);
 
             //transform.localRotation = Quaternion.Euler(xRotation, 0f, 10f);
         }
         else if (playermovent.CheckWallE() && !playermovent.CheckGround())
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, -50f), Time.deltaTime * 1f);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, -20f), Time.deltaTime * 1f);
             //transform.localRotation = Quaternion.Euler(xRotation, 0f, -10f);
         }
         else if (!playermovent.CheckWallE() && !playermovent.CheckWallD() && playermovent.CheckGround() && (transform.localEulerAngles.z !=0))
