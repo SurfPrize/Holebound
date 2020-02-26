@@ -37,24 +37,27 @@ public class MouseLook : NetworkBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);      
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, transform.eulerAngles.z);
-        
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, transform.localEulerAngles.z);
+
         if (playermovent.CheckWallD() && !playermovent.CheckGround())
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 10f), Time.deltaTime * 1f);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 50f), Time.deltaTime * 1f);
 
             //transform.localRotation = Quaternion.Euler(xRotation, 0f, 10f);
         }
         else if (playermovent.CheckWallE() && !playermovent.CheckGround())
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, -10f), Time.deltaTime * 1f);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, -50f), Time.deltaTime * 1f);
             //transform.localRotation = Quaternion.Euler(xRotation, 0f, -10f);
         }
-        else if (!playermovent.CheckWallE() && !playermovent.CheckWallD() && playermovent.CheckGround() && transform.eulerAngles.z !=0f)
+        else if (!playermovent.CheckWallE() && !playermovent.CheckWallD() && playermovent.CheckGround() && (transform.localEulerAngles.z !=0))
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0f), Time.deltaTime * 3f);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f), Time.deltaTime);
+            if (transform.localRotation.z < 0.01f && transform.localRotation.z > -0.01f)
+            {
+                transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            }
         }
-        
         //transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
 

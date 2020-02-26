@@ -13,6 +13,7 @@ public class Hud_methods : NetworkBehaviour
 
     public void Updatehud(int ammo)
     {
+        ammo_text.text = "";
         if (ammo == 0)
         {
             ammo_text.text = "No Ammo!";

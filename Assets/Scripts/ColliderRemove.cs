@@ -9,7 +9,7 @@ public class ColliderRemove : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != 0)
+        if (other.gameObject.layer != 0 && other.gameObject.layer != 12)
         {
             current = other;
             StartCoroutine(Falling(other));
