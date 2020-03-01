@@ -12,8 +12,10 @@ public class Bullet_behavior : NetworkBehaviour
     private Shoot_bullet father;
 
     [SerializeField]
-    [Range(10f, 200f)]
-    private float speed = 20;
+    [Range(1000f, 200000f)]
+    private float speed = 5000;
+
+    private Vector3 dir;
 
     public GameObject GetBOwner()
     {
@@ -28,9 +30,9 @@ public class Bullet_behavior : NetworkBehaviour
         father = transform.root.GetComponent<Shoot_bullet>();
         rb = GetComponent<Rigidbody>();
         transform.parent = null;
-        Destroy(gameObject, 10);
-        transform.rotation=father.transform.rotation;
-        Debug.Log(new Vector3(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, 0));
+        Destroy(gameObject, 5);
+        transform.localRotation = Camera.main.transform.localRotation;
+        dir = Camera.main.transform.forward;
     }
 
 
@@ -38,13 +40,14 @@ public class Bullet_behavior : NetworkBehaviour
 
     private void Update()
     {
-        rb.AddForce(transform.forward*2000);
-       
+
+        rb.AddForce(dir * speed);
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag != "Vortex_Ball")
+        if (collision.transform.tag != "buraco")
         {
             father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
         }

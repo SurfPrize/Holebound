@@ -8,6 +8,7 @@ TagManager:
   - parede
   - paredex
   - Limite
+  - buraco
   layers:
   - Default
   - TransparentFX

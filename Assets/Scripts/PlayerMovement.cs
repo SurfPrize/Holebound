@@ -60,6 +60,9 @@ public class PlayerMovement : NetworkBehaviour
             isWallD = CheckWallD();
             isWallE = CheckWallE();
             isWallFoward = CheckWallFrente();
+            Debug.Log("Is grounded: " + isGrounded);
+            Debug.Log("Is wallD: " + isWallD);
+            Debug.Log("Is WallE: " + isWallE);
             //if (!isGrounded && isWallFoward)
             //{
             //    iswallclimbing = true;
@@ -82,6 +85,7 @@ public class PlayerMovement : NetworkBehaviour
 
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
+                Debug.Log("Saltou");
                 velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
                 var vn = velocity;
                 vn = vn.normalized;
@@ -159,13 +163,13 @@ public class PlayerMovement : NetworkBehaviour
             //    }
             //}
 
-            Debug.Log("IsWallclimbing: " + iswallclimbing);
+            //Debug.Log("IsWallclimbing: " + iswallclimbing);
         }
         else
         {
             playercam.enabled = false;
         }
-        Debug.Log("Is wallrunning:" + iswallrunning);
+        //Debug.Log("Is wallrunning:" + iswallrunning);
     }
     //private IEnumerator stopbhop()
     //{
