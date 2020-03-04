@@ -34,6 +34,13 @@ public class Hole_behaviour : MonoBehaviour
         Owner.GetComponent<Shoot_bullet>().Cmd_Destroy(gameObject);
 
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Scorer>() != null)
+        {
+            other.GetComponent<Scorer>().Last_player_touch = Owner;
+        }
+    }
 
     private IEnumerator rotate()
     {

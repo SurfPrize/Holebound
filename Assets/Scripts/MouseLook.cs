@@ -18,7 +18,7 @@ public class MouseLook : NetworkBehaviour
         
         if (!player.isLocalPlayer)
         {
-            return;
+            
         }
         Cursor.lockState = CursorLockMode.Locked;
         playermovent = playergameobject.GetComponent<PlayerMovement>();
@@ -29,7 +29,7 @@ public class MouseLook : NetworkBehaviour
     {
         if (!player.isLocalPlayer)
         {
-            return;
+            
         }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;

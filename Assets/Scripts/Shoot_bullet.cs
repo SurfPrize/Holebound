@@ -13,7 +13,7 @@ public class Shoot_bullet : NetworkBehaviour
     private GameObject Spawnpoint;
 
     private Hud_methods hdScript;
-    
+
 
     [SerializeField]
     [Range(1f, 15f)]
@@ -21,13 +21,14 @@ public class Shoot_bullet : NetworkBehaviour
 
     [SerializeField]
     [Range(1, 10)]
-    private int clip_size=5;
+    private int clip_size = 5;
 
+    [SerializeField]
     private int cclip;
 
     [SerializeField]
     [Range(0.1f, 15f)]
-    private float shootspeed=5;
+    private float shootspeed = 5;
 
     [SerializeField]
     private GameObject buracoPrefab;
@@ -36,8 +37,9 @@ public class Shoot_bullet : NetworkBehaviour
 
     [SerializeField]
     [Range(0.2f, 2f)]
-    private float reload_speed=0.4f;
+    private float reload_speed = 0.4f;
 
+    private bool isreloading = false;
     private bool allowed = true;
 
     // Start is called before the first frame update
@@ -45,7 +47,7 @@ public class Shoot_bullet : NetworkBehaviour
     {
         cclip = clip_size;
         hdScript = gameObject.GetComponent<Hud_methods>();
-        foreach(Camera este in FindObjectsOfType<Camera>())
+        foreach (Camera este in FindObjectsOfType<Camera>())
         {
             if (este.GetComponent<NetworkIdentity>() == null)
                 este.gameObject.SetActive(false);
@@ -63,8 +65,9 @@ public class Shoot_bullet : NetworkBehaviour
         {
 
 
-            if (Input.GetKeyUp(KeyCode.R))
+            if (Input.GetKeyUp(KeyCode.R) && !isreloading)
             {
+                isreloading = true;
                 StartCoroutine(reload());
             }
 
@@ -102,7 +105,7 @@ public class Shoot_bullet : NetworkBehaviour
             default:
                 break;
         }
-        nburaco.transform.localScale = Vector3.one *holesize;
+        nburaco.transform.localScale = Vector3.one * holesize;
         nburaco.transform.rotation = rot;
         NetworkServer.Destroy(bala);
         Destroy(bala);
@@ -121,12 +124,12 @@ public class Shoot_bullet : NetworkBehaviour
         Debug.Log("Shooting");
         GameObject newbullet = Instantiate(bullet, Spawnpoint.transform.position, transform.rotation, transform) as GameObject;
         NetworkServer.Spawn(newbullet);
-        
+
         scooldown = shootspeed;
         StartCoroutine(shoot_sp(scooldown));
         cclip--;
         hdScript.Updatehud(cclip);
-        
+
 
     }
 
@@ -149,10 +152,10 @@ public class Shoot_bullet : NetworkBehaviour
 
     private IEnumerator reload()
     {
-        Debug.Log("Reloading " + cclip);
+
         if (cclip == clip_size)
         {
-            Debug.Log("Clip full!");
+            isreloading = false;
             yield return null;
         }
         else
@@ -163,6 +166,9 @@ public class Shoot_bullet : NetworkBehaviour
             allowed = true;
             if (cclip < clip_size)
                 StartCoroutine(reload());
+            else
+                isreloading = false;
         }
+
     }
 }

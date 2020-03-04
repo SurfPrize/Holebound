@@ -7,7 +7,16 @@ public class Scorer : MonoBehaviour
 {
 
     private NetworkStartPosition[] spawns;
-    private Hole_behaviour Last_hole;
+    private GameObject _Last_player_touch;
+    public GameObject Last_player_touch
+    {
+        get => _Last_player_touch;
+        set
+        {
+            if (value != gameObject)
+                _Last_player_touch = value;
+        }
+    }
 
     [SerializeField]
     [Range(1, 5)]
@@ -16,13 +25,14 @@ public class Scorer : MonoBehaviour
     private Shoot_bullet commands;
 
     [SerializeField]
-    [Range(-80, -5)]
-    private readonly float outofbounds_limit = -20;
+    [Range(-200, -5)]
+    private float outofbounds_limit = -50;
     // Start is called before the first frame update
     void Start()
     {
         spawns = FindObjectsOfType<NetworkStartPosition>();
         commands = gameObject.GetComponent<Shoot_bullet>();
+        StartCoroutine(Bounds_check());
     }
 
     private IEnumerator Bounds_check()
@@ -30,17 +40,17 @@ public class Scorer : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (transform.position.y < outofbounds_limit)
         {
-            transform.position = spawns[Random.Range(0,spawns.Length)].transform.position;
-            
-            if (Last_hole.Owner != gameObject)
+            transform.position = spawns[Random.Range(0, spawns.Length)].transform.position;
+
+            if (Last_player_touch == null)
             {
                 //aqui faz algo tipo uma animacao que mataste
             }
 
             lives--;
 
-            Last_hole = null;
-            foreach(Hole_behaviour este in FindObjectsOfType<Hole_behaviour>())
+            Last_player_touch = null;
+            foreach (Hole_behaviour este in FindObjectsOfType<Hole_behaviour>())
             {
                 commands.Cmd_Destroy(este.gameObject);
             }
@@ -49,10 +59,7 @@ public class Scorer : MonoBehaviour
                 //Game over
             }
         }
+        StartCoroutine(Bounds_check());
     }
 
-    public void change_last_touch(Hole_behaviour este)
-    {
-        Last_hole = este;
-    }
 }

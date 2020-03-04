@@ -63,43 +63,70 @@ public class PlayerMovement : NetworkBehaviour
             Debug.Log("Is grounded: " + isGrounded);
             Debug.Log("Is wallD: " + isWallD);
             Debug.Log("Is WallE: " + isWallE);
-            //if (!isGrounded && isWallFoward)
-            //{
-            //    iswallclimbing = true;
-            //}
-            if (isGrounded && velocity.y ==0)
-            {
-                velocity.y = -1f;
-            }
-            if (isGrounded || (!isWallD && !isWallE))
-            {
-                iswallrunning = false;
-                flagwallrunning = false;
-
-            }
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * x + transform.forward * z;
             controller.Move(move * speed * Time.deltaTime);
+            // Debug.Log("Speed:" + speed);
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+            //Parkour andar na parede
 
-            if (Input.GetButtonDown("Jump") && isGrounded)
+            //----------------------------------------------------------------------------------------------------------
+            if (isGrounded)
             {
-                Debug.Log("Saltou");
-                velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
-                var vn = velocity;
-                vn = vn.normalized;
-                velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
+                if (Input.GetButtonDown("Jump"))
+                {
+                    Debug.Log("Saltou");
+                    velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
+                    var vn = velocity;
+                    vn = vn.normalized;
+                    velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    isRunning = true;
+                }
+                if (velocity.y==0)
+                {
+                    velocity.y = -1f;
+                }
+                iswallclimbing = false;
+
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
+            else if (!isGrounded)
             {
-                isRunning = true;
+                if ((isWallD || isWallE) && !iswallclimbing)
+                {
+                    iswallrunning = true;
+                }
+                if (isWallFoward)
+                {
+                    iswallclimbing = true;
+                }
             }
+            //----------------------------------------------------------------------------------------------------------
+            if (isWallD)
+            {
+
+            }
+            else if (!isWallD)
+            {
+                if (!isWallE)
+                {
+                    iswallrunning = false;
+                    flagwallrunning = false;
+                    
+                }
+            }
+            //----------------------------------------------------------------------------------------------------------
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 isRunning = false;
 
             }
+            //----------------------------------------------------------------------------------------------------------
             if (isRunning)
             {
                 speed = speedInicial + Sprintspeed;
@@ -108,21 +135,13 @@ public class PlayerMovement : NetworkBehaviour
             {
                 speed = speedInicial;
             }
+            //----------------------------------------------------------------------------------------------------------
             if (!iswallrunning)
             {
                 velocity.y += gravity * Time.deltaTime;
                 controller.Move(velocity * Time.deltaTime);
             }
-           // Debug.Log("Speed:" + speed);
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
-            //Parkour andar na parede
-            if ((isWallD && !isGrounded) || (isWallE && !isGrounded) && !iswallclimbing)
-            {
-               
-                iswallrunning = true;
-            }
-            if (iswallrunning)
+            else  if (iswallrunning)
             {
 
                 float step = 0.0001f;
@@ -130,7 +149,7 @@ public class PlayerMovement : NetworkBehaviour
                 if (flagwallrunning == false)
                 {
                     //Debug.Log(velocity.y);
-                    velocity.y = 1f + velocity.y;
+                    velocity.y = 100f + velocity.y;
                     //Debug.Log(velocity.y);
                     flagwallrunning = true;
 
@@ -141,29 +160,24 @@ public class PlayerMovement : NetworkBehaviour
                 
 
             }
-            //if (iswallclimbing)
-            //{
-            //    float step = 0.0001f;
+            //----------------------------------------------------------------------------------------------------------
+            if (iswallclimbing)
+            {
+                float step = 0.0001f;
 
-            //    if (flagwallclimbing == false)
-            //    {
-            //        //Debug.Log(velocity.y);
-            //        velocity.y = 2f + velocity.y;
-            //        //Debug.Log(velocity.y);
-            //        flagwallclimbing = true;
+                if (flagwallclimbing == false)
+                {
+                    //Debug.Log(velocity.y);
+                    velocity.y = 999f + velocity.y;
+                    //Debug.Log(velocity.y);
+                    flagwallclimbing = true;
 
-            //    }
+                }
 
-            //    velocity.y = velocity.y + step;
-            //    step = step + 0.001f;
-
-            //    if (Input.GetButtonDown("Jump"))
-            //    {
-            //        controller.Move(new Vector3());
-            //    }
-            //}
-
-            //Debug.Log("IsWallclimbing: " + iswallclimbing);
+                velocity.y = velocity.y + step;
+                step = step + 0.001f;
+            }
+            Debug.Log("IsWallclimbing: " + iswallclimbing);
         }
         else
         {

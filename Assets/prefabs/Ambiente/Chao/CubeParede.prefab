@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 230177376087576257}
   - component: {fileID: 1866801186756067720}
   - component: {fileID: 1980058311336856033}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: CubeParede
   m_TagString: parede
   m_Icon: {fileID: 0}
