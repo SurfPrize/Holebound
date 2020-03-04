@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 6369895209157096038}
   - component: {fileID: 818213237614874271}
   - component: {fileID: 1766539248979727203}
-  - component: {fileID: 4796892250733782343}
   - component: {fileID: 9107275956345105502}
   - component: {fileID: 1503017174594596969}
   m_Layer: 0
   m_Name: buracov2
-  m_TagString: Untagged
+  m_TagString: buraco
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,20 +97,6 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   m_AssetId: 
---- !u!114 &4796892250733782343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397864754216483395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 260f89e3f42593847a8eda05df77f9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!135 &9107275956345105502
 SphereCollider:
   m_ObjectHideFlags: 0
