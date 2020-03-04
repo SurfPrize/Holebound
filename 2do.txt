@@ -1,0 +1,54 @@
+Playstation
+https://support.unity3d.com/hc/en-us/articles/212064606-How-do-I-develop-to-Sony-platforms-
+https://www.youtube.com/watch?v=FgH-R8KgN7M Minuto 8:30 e ~19:00 e ~25:00
+Voxels
+https://www.youtube.com/watch?v=h66IN1Pndd0
+Matchmaking entre Unity e playstation
+https://assetstore.unity.com/packages/tools/network/smartfoxserver2x-multiplayer-sdk-17261
+Ranking/Profiles como fazer isto um e sport
+https://www.youtube.com/watch?v=o5-Y-5Dtg_c
+
+moodboard estetica
+
+moodboard gameplay
+https://www.youtube.com/watch?v=zkCsKXoix4g
+https://www.youtube.com/watch?v=Vy4QrXa8ytk
+https://www.youtube.com/watch?v=h2sJd1Wy4Vk
+
+4/3
+
+1.Campo
+//Experimentar com cubos separados com rigidbody J
+//Parede que se transformam em grids juntas R
+//partir cubos generativo (R6) R
+Cubos ganham fisica ao contacto com uma bala
+Cubos desaparecem
+
+
+2.MP
+Investigar PSPlus Profiles e Rank por ELO J
+Servers com PSPlus J
+
+/*
+3.Generativo
+Perlin noise c/ os voxels por dentro + paredes normais J
+roguelite ao mapa R
+*/
+
+
+4.Animacao e Gameplay
+Transição entre 2 animacoes
+Nº de estados
+-Parado
+-Andar em X e Z
+-Correr
+-Correr na parede
+-Saltar
+-Cair? Ragdoll
+-Dashes
+-Double jump
+-Vault
+
+5.Raytracing
+
+6.Dar com comandos R
