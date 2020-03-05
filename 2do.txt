@@ -28,6 +28,7 @@ Cubos desaparecem
 2.MP
 Investigar PSPlus Profiles e Rank por ELO J
 Servers com PSPlus J
+-tens de ter os teus na mesma
 
 /*
 3.Generativo
