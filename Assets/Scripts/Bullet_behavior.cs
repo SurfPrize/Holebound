@@ -49,7 +49,7 @@ public class Bullet_behavior : NetworkBehaviour
     {
         if (collision.transform.tag != "buraco")
         {
-            father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
+           // father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
         }
 
     }
