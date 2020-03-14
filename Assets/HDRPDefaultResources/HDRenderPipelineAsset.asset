@@ -150,8 +150,7 @@ MonoBehaviour:
       isFptlEnabled: 0
   m_RenderPipelineResources: {fileID: 11400000, guid: 3ce144cff5783da45aa5d4fdc2da14b7,
     type: 2}
-  m_RenderPipelineRayTracingResources: {fileID: 11400000, guid: ba6e7f30e5cffc249a8bf7ee5756c196,
-    type: 2}
+  m_RenderPipelineRayTracingResources: {fileID: 0}
   m_DefaultVolumeProfile: {fileID: 11400000, guid: 3043edc9d9a47704fad99f10fea80a08,
     type: 2}
   m_DefaultLookDevProfile: {fileID: 0}
@@ -219,7 +218,7 @@ MonoBehaviour:
     supportRuntimeDebugDisplay: 1
     supportDitheringCrossFade: 1
     supportTerrainHole: 0
-    supportRayTracing: 1
+    supportRayTracing: 0
     supportedRaytracingTier: 2
     lightLoopSettings:
       cookieSize: 128
@@ -313,7 +312,7 @@ MonoBehaviour:
       ChromaticAberrationMaxSamples: 03000000060000000c000000
     lightSettings:
       useContactShadow:
-        m_Values: 000000
+        m_Values: 
         m_SchemaId:
           m_Id: 
     maximumLODLevel:
@@ -342,8 +341,8 @@ MonoBehaviour:
   m_DefaultMaterialQualityLevel: 4
   diffusionProfileSettings: {fileID: 0}
   diffusionProfileSettingsList:
-  - {fileID: 11400000, guid: a80cd8412fc46d54a861af8be51b4da0, type: 2}
-  - {fileID: 11400000, guid: 1e326001085102c4fb0441187314fe27, type: 2}
+  - {fileID: 11400000, guid: fa79b5fd8f53e2d458267392bddefae2, type: 2}
+  - {fileID: 11400000, guid: abe014979a1f0844cbc3a25bec65380e, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses: []

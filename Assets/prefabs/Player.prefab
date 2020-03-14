@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 5580927369954443844}
   - component: {fileID: -3224507994038465605}
   - component: {fileID: 3805945233712013142}
-  - component: {fileID: 4841380161124358226}
+  - component: {fileID: 3203784980445118469}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -459,7 +459,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b44c2c95da9bd2442ac6466d0c80386a, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -598,10 +598,8 @@ MonoBehaviour:
   clip_size: 5
   cclip: 0
   shootspeed: 2
-  buracoPrefab: {fileID: 1397864754216483395, guid: a4a1ed963c516e141a57126cf1fcd33c,
-    type: 3}
   reload_speed: 0.4
---- !u!114 &4841380161124358226
+--- !u!114 &3203784980445118469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -610,11 +608,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4686715508509576186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fc3b9d3f85fa684680cdb4f9d4e297f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cea19a6c2bfe11489459e173fc6c554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
-  outofbounds_limit: -83
+  outofbounds_limit: -50
 --- !u!1001 &4131950871023477136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -781,11 +779,6 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 3721677802364938116, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d3a10be0b2a7dac47a1b98ab7f872d44, type: 2}
     - target: {fileID: 3721677802364938118, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -841,34 +834,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3721677802364938118, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.6407648
-      objectReference: {fileID: 0}
-    - target: {fileID: 3721677802364938118, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.39899927
-      objectReference: {fileID: 0}
-    - target: {fileID: 3721677802364938118, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.3989993
-      objectReference: {fileID: 0}
-    - target: {fileID: 3721677802364938138, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
-        type: 3}
-      propertyPath: bulletSpeed
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3721677802364938139, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
         type: 3}
       propertyPath: m_Name
       value: GUN
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 127198348435246261, guid: 5cb2fc23747c70644ab8b27d1bdb2c88, type: 3}
-    - {fileID: 3111010520913296860, guid: 5cb2fc23747c70644ab8b27d1bdb2c88, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb2fc23747c70644ab8b27d1bdb2c88, type: 3}
 --- !u!4 &8263121057518897969 stripped
 Transform:

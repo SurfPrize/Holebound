@@ -42,16 +42,19 @@ public class Bullet_behavior : NetworkBehaviour
     {
 
         rb.AddForce(dir * speed);
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.transform.tag != "buraco")
         {
-           // father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
+            father.Start_hide(collision.gameObject);
+            Destroy(gameObject);
+            // father.Cmd_createhole(collision.transform.position, collision.transform.rotation, gameObject, collision.transform.tag);
         }
-
+        Destroy(gameObject);
     }
+
 
 }
