@@ -515,7 +515,7 @@ MonoBehaviour:
   controller: {fileID: 4686715508509576188}
   playercam: {fileID: 4686715506726507218}
   speed: 8.2
-  Sprintspeed: 5
+  Runspeed: 20
   gravity: -4.905
   jumHeight: 3
   groundCheck: {fileID: 4686715506995926335}

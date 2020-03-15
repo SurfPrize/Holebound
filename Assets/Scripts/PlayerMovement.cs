@@ -24,7 +24,7 @@ public class PlayerMovement : NetworkBehaviour
     }
     private Wallpos _current_wall;
     private Estadoplayer current_state;
-    public  Estadoplayer player_state { get => current_state; }
+    public Estadoplayer player_state { get => current_state; }
 
     public Wallpos current_wall
     {
@@ -110,16 +110,13 @@ public class PlayerMovement : NetworkBehaviour
         Inputc.PlayercontrolsPS4.Run.Disable();
     }
 
-    private void HandleRun(InputAction.CallbackContext obj)
+    private void HandleRun(InputAction.CallbackContext context)
     {
-        if (current_state == Estadoplayer.RUN)
-        {
+        Debug.Log("IS RUNNING");
+        if (speed == speedInicial)
             speed = speedInicial + Runspeed;
-        }
         else
-        {
             speed = speedInicial;
-        }
     }
 
     private void HandleJump(InputAction.CallbackContext obj)
@@ -140,9 +137,9 @@ public class PlayerMovement : NetworkBehaviour
         float y = context.ReadValue<Vector2>().y;
 
         move = transform.right * x + transform.forward * y;
-        Debug.Log(move + " x:" + x + " y" + y);
+        //Debug.Log(move + " x:" + x + " y" + y);
     }
-    
+
     private void Start()
     {
         //StartCoroutine(stopbhop());
@@ -158,7 +155,7 @@ public class PlayerMovement : NetworkBehaviour
             Debug.Log(current_state);
             float step = 0.0001f;
             velocity.y += gravity * Time.deltaTime;
-            
+
             //Parkour andar na parede
             switch (current_state)
             {
@@ -170,16 +167,14 @@ public class PlayerMovement : NetworkBehaviour
                     controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.RUN:
-                    
-                    controller.Move(velocity * 2f * Time.deltaTime);
+
+                    controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.WRUNNING:
 
                     if (flagwallrunning == false)
                     {
-                        //Debug.Log(velocity.y);
                         velocity.y = 100f + velocity.y;
-                        //Debug.Log(velocity.y);
                         flagwallrunning = true;
                     }
 
