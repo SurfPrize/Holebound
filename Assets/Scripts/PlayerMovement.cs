@@ -171,7 +171,7 @@ public class PlayerMovement : NetworkBehaviour
                     break;
                 case Estadoplayer.RUN:
                     
-                    controller.Move(velocity * Time.deltaTime);
+                    controller.Move(velocity * 2f * Time.deltaTime);
                     break;
                 case Estadoplayer.WRUNNING:
 
@@ -339,7 +339,7 @@ public class PlayerMovement : NetworkBehaviour
         RaycastHit hit;
 
         Debug.DrawRay(transform.position, transform.up * -groundDistance, Color.blue);
-        return Physics.Raycast(transform.position, transform.up * -1, out hit, 3, groundMask);
+        return Physics.Raycast(transform.position, transform.up * -1, out hit, 4, groundMask);
     }
 
     public bool CheckWallD()
@@ -347,20 +347,20 @@ public class PlayerMovement : NetworkBehaviour
         RaycastHit hit;
 
         Debug.DrawRay(transform.position, transform.right * WallDistance, Color.green);
-        return Physics.Raycast(transform.position, transform.right, out hit, 3, wallMask);
+        return Physics.Raycast(transform.position, transform.right, out hit, 4, wallMask);
     }
     public bool CheckWallE()
     {
         RaycastHit hit;
 
         Debug.DrawRay(transform.position, transform.right * -WallDistance, Color.black);
-        return Physics.Raycast(transform.position, transform.right * -1, out hit, 3, wallMask);
+        return Physics.Raycast(transform.position, transform.right * -1, out hit, 4, wallMask);
     }
     public bool CheckWallFrente()
     {
         RaycastHit hit;
 
         Debug.DrawRay(transform.position, transform.forward * WallDistance, Color.green);
-        return Physics.Raycast(transform.position, transform.right, out hit, 3, wallMask);
+        return Physics.Raycast(transform.position, transform.right, out hit, 4, wallMask);
     }
 }
