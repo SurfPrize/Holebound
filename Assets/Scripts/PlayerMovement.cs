@@ -158,7 +158,8 @@ public class PlayerMovement : NetworkBehaviour
             check_state();
             Debug.Log(current_state);
             float step = 0.0001f;
-
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
             //Parkour andar na parede
             switch (current_state)
             {
@@ -167,8 +168,7 @@ public class PlayerMovement : NetworkBehaviour
                     {
                         velocity.y = -1f;
                     }
-                    velocity.y += gravity * Time.deltaTime;
-                    controller.Move(velocity * Time.deltaTime);
+                    
                     break;
                 case Estadoplayer.RUN:
                     
@@ -188,7 +188,6 @@ public class PlayerMovement : NetworkBehaviour
                     step = step + 0.001f;
                     break;
                 case Estadoplayer.WCLIMBING:
-
                     if (flagwallclimbing == false)
                     {
                         //Debug.Log(velocity.y);
@@ -197,7 +196,6 @@ public class PlayerMovement : NetworkBehaviour
                         flagwallclimbing = true;
 
                     }
-
                     velocity.y = velocity.y + step;
                     step = step + 0.001f;
                     break;
@@ -309,10 +307,6 @@ public class PlayerMovement : NetworkBehaviour
     //}
     public void check_state()
     {
-        isGrounded = CheckGround();
-        isWallD = CheckWallD();
-        isWallE = CheckWallE();
-        isWallFoward = CheckWallFrente();
 
         if (CheckGround())
         {
