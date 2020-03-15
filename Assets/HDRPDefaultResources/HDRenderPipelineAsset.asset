@@ -189,7 +189,7 @@ MonoBehaviour:
     materialQuality: 0
   m_RenderPipelineSettings:
     supportShadowMask: 1
-    supportSSR: 1
+    supportSSR: 0
     supportSSAO: 1
     supportSubsurfaceScattering: 1
     increaseSssSampleCount: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
       maxDirectionalShadowMapResolution: 2048
       maxPunctualShadowMapResolution: 2048
       maxAreaShadowMapResolution: 2048
-      supportScreenSpaceShadows: 1
+      supportScreenSpaceShadows: 0
       maxScreenSpaceShadows: 2
     decalSettings:
       drawDistance: 1000
@@ -341,8 +341,7 @@ MonoBehaviour:
   m_DefaultMaterialQualityLevel: 4
   diffusionProfileSettings: {fileID: 0}
   diffusionProfileSettingsList:
-  - {fileID: 11400000, guid: 85fce0f7f80c8ae40baa595a1ebbd763, type: 2}
-  - {fileID: 11400000, guid: 848829da5ee711f419c3dfe70256b8d2, type: 2}
+  - {fileID: 11400000, guid: 000ac9110437327438ee97aca76afba9, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses: []

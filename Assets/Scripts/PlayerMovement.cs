@@ -85,6 +85,8 @@ public class PlayerMovement : NetworkBehaviour
     private bool flagwallrunning = false;
     private bool flagwallclimbing = false;
 
+    private Vector3 move;
+
     private Controlosps4 Inputc;
 
     private void OnEnable()
@@ -135,21 +137,18 @@ public class PlayerMovement : NetworkBehaviour
     private void Handlemove(InputAction.CallbackContext context)
     {
         float x = context.ReadValue<Vector2>().x;
-        float z = context.ReadValue<Vector2>().y;
+        float y = context.ReadValue<Vector2>().y;
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
-        // Debug.Log("Speed:" + speed);
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        move = transform.right * x + transform.forward * y;
+        Debug.Log(move + " x:" + x + " y" + y);
     }
-
-
+    
     private void Start()
     {
         //StartCoroutine(stopbhop());
         speedInicial = speed;
     }
+
     private void Update()
     {
 
@@ -159,7 +158,7 @@ public class PlayerMovement : NetworkBehaviour
             Debug.Log(current_state);
             float step = 0.0001f;
             velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+            
             //Parkour andar na parede
             switch (current_state)
             {
@@ -168,7 +167,7 @@ public class PlayerMovement : NetworkBehaviour
                     {
                         velocity.y = -1f;
                     }
-                    
+                    controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.RUN:
                     
@@ -201,6 +200,7 @@ public class PlayerMovement : NetworkBehaviour
                     break;
                 case Estadoplayer.AIRBORNE:
                     velocity.y += gravity * Time.deltaTime;
+                    controller.Move(velocity * Time.deltaTime);
                     break;
                 default:
                     Debug.LogError("JOGADOR EM NENHUM  ESTADO");
