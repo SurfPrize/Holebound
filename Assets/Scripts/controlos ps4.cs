@@ -117,7 +117,7 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""id"": ""7bc339f1-2d64-4099-ac60-7fadace8df43"",
                     ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone"",
+                    ""processors"": """",
                     ""groups"": ""PS4"",
                     ""action"": ""Mover"",
                     ""isComposite"": false,
