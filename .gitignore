@@ -61,3 +61,10 @@ crashlytics-build.properties
 *.meta
 *.meta
 *.meta
+ProjectSettings/GraphicsSettings.asset
+ProjectSettings/GraphicsSettings.asset
+ProjectSettings/HDRPProjectSettings.asset
+ProjectSettings/Packages/com.unity.probuilder/Settings.json
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/QualitySettings.asset
+Assets/HDRPDefaultResources/HDRenderPipelineAsset.asset
