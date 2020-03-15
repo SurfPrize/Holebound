@@ -92,6 +92,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""71afc97e-f93b-4a33-8a1f-8b81a7f44194"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""23f608de-a7d5-4462-91ec-8bf2cab798d7"",
                     ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
@@ -114,6 +125,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""cc657fca-330b-447a-b4e2-2d6b8545bea9"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""7bc339f1-2d64-4099-ac60-7fadace8df43"",
                     ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
@@ -127,8 +149,8 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""name"": ""Mover"",
                     ""id"": ""df098f70-e6c1-469d-824a-5acf05560dfb"",
                     ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""processors"": ""ScaleVector2(x=4,y=4)"",
                     ""groups"": """",
                     ""action"": ""Mover"",
                     ""isComposite"": true,
@@ -180,6 +202,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ed1885a8-5e67-4a22-9dfb-48670224c8d7"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Mover"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""455af26b-6d62-4c08-a001-0d3d12526bc5"",
                     ""path"": ""<DualShockGamepad>/rightStick"",
                     ""interactions"": """",
@@ -196,6 +229,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": ""ScaleVector2(x=0.2,y=0.2)"",
                     ""groups"": ""teclado_debug"",
+                    ""action"": ""Olhar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ca48cea-5b82-4fbe-84b3-89c54fba20bb"",
+                    ""path"": ""<XInputController>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
                     ""action"": ""Olhar"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -224,6 +268,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3c4ddc75-f924-405d-a1e8-dc1da3679b71"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4091d87f-252d-42cc-a562-db1ffd387f34"",
                     ""path"": ""<DualShockGamepad>/rightShoulder"",
                     ""interactions"": """",
@@ -240,6 +295,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""teclado_debug"",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e49db79-6069-4b99-9360-54caf4c0aa10"",
+                    ""path"": ""<XInputController>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -271,6 +337,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 {
                     ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Xbox"",
+            ""bindingGroup"": ""Xbox"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]
@@ -419,6 +496,15 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
         {
             if (m_teclado_debugSchemeIndex == -1) m_teclado_debugSchemeIndex = asset.FindControlSchemeIndex("teclado_debug");
             return asset.controlSchemes[m_teclado_debugSchemeIndex];
+        }
+    }
+    private int m_XboxSchemeIndex = -1;
+    public InputControlScheme XboxScheme
+    {
+        get
+        {
+            if (m_XboxSchemeIndex == -1) m_XboxSchemeIndex = asset.FindControlSchemeIndex("Xbox");
+            return asset.controlSchemes[m_XboxSchemeIndex];
         }
     }
     public interface IPlayercontrolsPS4Actions
