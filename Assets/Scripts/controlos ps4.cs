@@ -62,7 +62,7 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""cd3fddea-59ee-4dec-a3bb-599dcd536054"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
                 }
@@ -280,7 +280,7 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4091d87f-252d-42cc-a562-db1ffd387f34"",
-                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS4"",
