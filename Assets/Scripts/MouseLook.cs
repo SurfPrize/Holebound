@@ -20,6 +20,7 @@ public class MouseLook : NetworkBehaviour
 
     // Start is called before the first frame update
 
+    //para dar enable aos controlos, um handle é um metodo que é feito sempre que uma variavel muda para um valor diferente do anterior
     private void OnEnable()
     {
         Inputc = new Controlosps4();
@@ -27,15 +28,18 @@ public class MouseLook : NetworkBehaviour
         Inputc.PlayercontrolsPS4.Olhar.Enable();
     }
 
+    //para nao dar memory leak
     private void OnDisable()
     {
         Inputc.PlayercontrolsPS4.Olhar.performed -= HandleMove;
         Inputc.PlayercontrolsPS4.Olhar.Disable();
     }
 
+    //sempre que se mexe o analogico direito
     private void HandleMove(InputAction.CallbackContext context)
     {
         moveAxis = context.ReadValue<Vector2>();
+        //nao mudei muito, aquilo da return a um x e y que equivalem ao x e y do analogico
     }
 
     private void Start()
@@ -56,9 +60,12 @@ public class MouseLook : NetworkBehaviour
             return;
         }
 
+        //dei invert ao Y para fazer mais sentido, pelo menos para mim, podes mudar se quiseres :S
         float mouseX = moveAxis.x * mouseSensitivity * Time.deltaTime;
         float mouseY = -moveAxis.y * mouseSensitivity * Time.deltaTime;
 
+
+        //tive de mudar o clamp visto que nao tava a dar com esta cena, sorry ;_;
         Quaternion result = transform.localRotation * Quaternion.Euler(Vector3.right * mouseY);
         
 
@@ -75,6 +82,7 @@ public class MouseLook : NetworkBehaviour
             transform.localRotation = result;
         }
 
+        //aqui ta tudo igual exepto que vai buscar a var current wall q da a parede do jogador
         float xRotation = transform.localRotation.x;
 
         if (playermovement.player_state==PlayerMovement.Estadoplayer.WRUNNING) {

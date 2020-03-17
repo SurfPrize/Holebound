@@ -89,17 +89,21 @@ public class PlayerMovement : NetworkBehaviour
 
     private Controlosps4 Inputc;
 
+    //um Handle serve para que sempre que uma variavel mude de valor faca um metodo
+    //sempre que o input do analogico muda de valor, chama o HandleMove
     private void OnEnable()
     {
         Inputc = new Controlosps4();
         Inputc.PlayercontrolsPS4.Mover.performed += Handlemove;
         Inputc.PlayercontrolsPS4.Jump.performed += HandleJump;
         Inputc.PlayercontrolsPS4.Run.performed += HandleRun;
+        //por alguma razao tens de se dar enable primeiro, e um bocado estupido
         Inputc.PlayercontrolsPS4.Mover.Enable();
         Inputc.PlayercontrolsPS4.Jump.Enable();
         Inputc.PlayercontrolsPS4.Run.Enable();
     }
 
+    //Isto sao coisas para nao dar memory leak
     private void OnDisable()
     {
         Inputc.PlayercontrolsPS4.Mover.performed -= Handlemove;
@@ -110,6 +114,7 @@ public class PlayerMovement : NetworkBehaviour
         Inputc.PlayercontrolsPS4.Run.Disable();
     }
 
+    //isto chama sempre que o botao e premido e largado(2x no total, na primeira da toggle on e na 2a toggle off
     private void HandleRun(InputAction.CallbackContext context)
     {
         Debug.Log("IS RUNNING");
@@ -119,9 +124,11 @@ public class PlayerMovement : NetworkBehaviour
             speed = speedInicial;
     }
 
+   //sempre que clicas no botao de salto
+   //quando fores fazer o double jump, cria outro enum, estadoplayer.airborn_and_doublejumped ou algo do genero
     private void HandleJump(InputAction.CallbackContext obj)
     {
-        if (current_state == Estadoplayer.GROUNDED)
+        if (current_state == Estadoplayer.GROUNDED|| current_state == Estadoplayer.RUN)
         {
             velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
             var vn = velocity;
@@ -131,6 +138,7 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+    //sempre que o analogico muda de posicao
     private void Handlemove(InputAction.CallbackContext context)
     {
         float x = context.ReadValue<Vector2>().x;
@@ -151,12 +159,13 @@ public class PlayerMovement : NetworkBehaviour
 
         if (isLocalPlayer)
         {
+            //isto são os raycasts, vê já o que ta la em baixo que assim ler o resto vai ser mais facil
             check_state();
-            Debug.Log(current_state);
             float step = 0.0001f;
+            //gravidade
             velocity.y += gravity * Time.deltaTime;
 
-            //Parkour andar na parede
+            //isto e para dar resolver o estado do jogador
             switch (current_state)
             {
                 case Estadoplayer.GROUNDED:
@@ -167,11 +176,11 @@ public class PlayerMovement : NetworkBehaviour
                     controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.RUN:
-
+                    //é praticamente igual ao walk, ams se depois tivermos animacoes de correr e so meter aqui
                     controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.WRUNNING:
-
+                    //WRUNNING é wall running logicamente
                     if (flagwallrunning == false)
                     {
                         velocity.y = 100f + velocity.y;
@@ -182,6 +191,7 @@ public class PlayerMovement : NetworkBehaviour
                     step = step + 0.001f;
                     break;
                 case Estadoplayer.WCLIMBING:
+                   //WCLIMBING é wall climbing
                     if (flagwallclimbing == false)
                     {
                         //Debug.Log(velocity.y);
@@ -199,6 +209,7 @@ public class PlayerMovement : NetworkBehaviour
                     break;
                 default:
                     Debug.LogError("JOGADOR EM NENHUM  ESTADO");
+                    //logicamente que op jogador tem de estar num estado
                     break;
             }
             //----------------------------------------------------------------------------------------------------------
@@ -303,6 +314,7 @@ public class PlayerMovement : NetworkBehaviour
     public void check_state()
     {
 
+        //os teus queridos raycasts, em else ifs para passar a frente se encontrar o estado do jogador
         if (CheckGround())
         {
             current_state = Estadoplayer.GROUNDED;
