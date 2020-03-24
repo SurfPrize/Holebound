@@ -79,6 +79,8 @@ public class PlayerMovement : NetworkBehaviour
     private bool flagwallclimbing = false;
     private bool jumping = false;
     private Vector3 move;
+    private bool jumped = false;
+    private bool jumpedtwice = false;
 
     private Controlosps4 Inputc;
 
@@ -121,15 +123,32 @@ public class PlayerMovement : NetworkBehaviour
     //quando fores fazer o double jump, cria outro enum, estadoplayer.airborn_and_doublejumped ou algo do genero
     private void HandleJump(InputAction.CallbackContext obj)
     {
-        if (current_state == Estadoplayer.GROUNDED || current_state == Estadoplayer.RUN)
+        if (current_state == Estadoplayer.GROUNDED || current_state == Estadoplayer.RUN || (current_state==Estadoplayer.AIRBORNE && jumpedtwice==false))
         {
-            Debug.Log("jumped");
-            velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
-            var vn = velocity;
-            vn = vn.normalized;
-            velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
-            current_state = Estadoplayer.AIRBORNE;
-            StartCoroutine(jumpcd());
+            if (jumped==true && jumpedtwice==false)
+            {
+                Debug.Log("jumped");
+                velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
+                var vn = velocity;
+                vn = vn.normalized;
+                velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
+                current_state = Estadoplayer.AIRBORNE;
+                StartCoroutine(jumpcd());
+                jumpedtwice = true;
+            }
+            if (jumped==false)
+            {
+                Debug.Log("jumped");
+                velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
+                var vn = velocity;
+                vn = vn.normalized;
+                velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
+                current_state = Estadoplayer.AIRBORNE;
+                StartCoroutine(jumpcd());
+                jumped = true;
+            }
+            
+            
         }
     }
 
@@ -171,6 +190,8 @@ public class PlayerMovement : NetworkBehaviour
             switch (current_state)
             {
                 case Estadoplayer.GROUNDED:
+                    jumpedtwice = false;
+                    jumped=false;
                     if (!jumping)
                         velocity.y = -1f;
                     else
@@ -214,6 +235,7 @@ public class PlayerMovement : NetworkBehaviour
                 case Estadoplayer.AIRBORNE:
                     velocity.y += gravity * Time.deltaTime;
                     controller.Move(velocity * Time.deltaTime);
+                    controller.Move(move * speed * Time.deltaTime);
                     break;
                 default:
                     Debug.LogError("JOGADOR EM NENHUM  ESTADO");
