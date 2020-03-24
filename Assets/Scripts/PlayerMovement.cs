@@ -81,6 +81,10 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 move;
     private bool jumped = false;
     private bool jumpedtwice = false;
+    private bool dashed = false;
+    public float speeddash = 20f;
+    private bool dashing = false;
+    private float journeyLength;
 
     private Controlosps4 Inputc;
 
@@ -92,10 +96,13 @@ public class PlayerMovement : NetworkBehaviour
         Inputc.PlayercontrolsPS4.Mover.performed += Handlemove;
         Inputc.PlayercontrolsPS4.Jump.performed += HandleJump;
         Inputc.PlayercontrolsPS4.Run.performed += HandleRun;
+        Inputc.PlayercontrolsPS4.Dash.performed += HandleDash;
+
         //por alguma razao tens de se dar enable primeiro, e um bocado estupido
         Inputc.PlayercontrolsPS4.Mover.Enable();
         Inputc.PlayercontrolsPS4.Jump.Enable();
         Inputc.PlayercontrolsPS4.Run.Enable();
+        Inputc.PlayercontrolsPS4.Dash.Enable();
     }
 
     //Isto sao coisas para nao dar memory leak
@@ -104,9 +111,11 @@ public class PlayerMovement : NetworkBehaviour
         Inputc.PlayercontrolsPS4.Mover.performed -= Handlemove;
         Inputc.PlayercontrolsPS4.Jump.performed -= HandleJump;
         Inputc.PlayercontrolsPS4.Run.performed -= HandleRun;
+        Inputc.PlayercontrolsPS4.Dash.performed -= HandleDash;
         Inputc.PlayercontrolsPS4.Mover.Disable();
         Inputc.PlayercontrolsPS4.Jump.Disable();
         Inputc.PlayercontrolsPS4.Run.Disable();
+        Inputc.PlayercontrolsPS4.Dash.Disable();
     }
 
     //isto chama sempre que o botao e premido e largado(2x no total, na primeira da toggle on e na 2a toggle off
@@ -123,9 +132,9 @@ public class PlayerMovement : NetworkBehaviour
     //quando fores fazer o double jump, cria outro enum, estadoplayer.airborn_and_doublejumped ou algo do genero
     private void HandleJump(InputAction.CallbackContext obj)
     {
-        if (current_state == Estadoplayer.GROUNDED || current_state == Estadoplayer.RUN || (current_state==Estadoplayer.AIRBORNE && jumpedtwice==false))
+        if (current_state == Estadoplayer.GROUNDED || current_state == Estadoplayer.RUN || (current_state == Estadoplayer.AIRBORNE && jumpedtwice == false))
         {
-            if (jumped==true && jumpedtwice==false)
+            if (jumped == true && jumpedtwice == false)
             {
                 Debug.Log("jumped");
                 velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
@@ -136,7 +145,7 @@ public class PlayerMovement : NetworkBehaviour
                 StartCoroutine(jumpcd());
                 jumpedtwice = true;
             }
-            if (jumped==false)
+            if (jumped == false)
             {
                 Debug.Log("jumped");
                 velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
@@ -147,9 +156,25 @@ public class PlayerMovement : NetworkBehaviour
                 StartCoroutine(jumpcd());
                 jumped = true;
             }
-            
-            
+
+
         }
+    }
+    private void HandleDash(InputAction.CallbackContext obj)
+    {
+        if (dashed==false)
+        {
+            Debug.Log("Dash Antes");
+            var movee = move.normalized;
+            
+            transform.position = Vector3.Lerp(transform.position, transform.position + (movee * 400), 4f);
+            dashed = true;
+            StartCoroutine(Dashcd());
+            Debug.Log("Dash Depois");
+        }
+
+
+
     }
 
     private IEnumerator jumpcd()
@@ -157,6 +182,13 @@ public class PlayerMovement : NetworkBehaviour
         jumping = true;
         yield return new WaitForSeconds(0.5f);
         jumping = false;
+    }
+
+    private IEnumerator Dashcd()
+    {
+        dashing = true;
+        yield return new WaitForSeconds(2f);
+        dashing = false;
     }
 
     //sempre que o analogico muda de posicao
@@ -191,7 +223,8 @@ public class PlayerMovement : NetworkBehaviour
             {
                 case Estadoplayer.GROUNDED:
                     jumpedtwice = false;
-                    jumped=false;
+                    jumped = false;
+                    dashed = false;
                     if (!jumping)
                         velocity.y = -1f;
                     else
