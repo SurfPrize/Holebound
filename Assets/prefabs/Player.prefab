@@ -516,7 +516,7 @@ MonoBehaviour:
   playercam: {fileID: 4686715506726507218}
   speed: 8.2
   Runspeed: 20
-  gravity: -4.905
+  gravity: -15.1
   jumHeight: 3
   groundCheck: {fileID: 4686715506995926335}
   groundDistance: 1

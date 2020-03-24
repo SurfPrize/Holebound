@@ -56,7 +56,6 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField]
     [Range(0.1f, 20)]
     private float Runspeed = 5f;
-    private bool isRunning;
     [SerializeField]
     [Range(-0.1f, -20)]
     private float gravity = -9.81f;
@@ -73,18 +72,12 @@ public class PlayerMovement : NetworkBehaviour
 
     public LayerMask groundMask;
     private Vector3 velocity;
-    private bool isGrounded;
-    private bool isWallD;
-    private bool isWallE;
-    private bool isWallFoward;
     public Transform WallCheck;
     public float WallDistance = 0.4f;
     public LayerMask wallMask;
-    private bool iswallclimbing = false;
-    private bool iswallrunning = false;
     private bool flagwallrunning = false;
     private bool flagwallclimbing = false;
-
+    private bool jumping = false;
     private Vector3 move;
 
     private Controlosps4 Inputc;
@@ -124,18 +117,27 @@ public class PlayerMovement : NetworkBehaviour
             speed = speedInicial;
     }
 
-   //sempre que clicas no botao de salto
-   //quando fores fazer o double jump, cria outro enum, estadoplayer.airborn_and_doublejumped ou algo do genero
+    //sempre que clicas no botao de salto
+    //quando fores fazer o double jump, cria outro enum, estadoplayer.airborn_and_doublejumped ou algo do genero
     private void HandleJump(InputAction.CallbackContext obj)
     {
-        if (current_state == Estadoplayer.GROUNDED|| current_state == Estadoplayer.RUN)
+        if (current_state == Estadoplayer.GROUNDED || current_state == Estadoplayer.RUN)
         {
+            Debug.Log("jumped");
             velocity.y = Mathf.Sqrt(jumHeight * -2f * gravity);
             var vn = velocity;
             vn = vn.normalized;
             velocity += new Vector3(vn.x * 2f, 0, vn.z * 2f);
             current_state = Estadoplayer.AIRBORNE;
+            StartCoroutine(jumpcd());
         }
+    }
+
+    private IEnumerator jumpcd()
+    {
+        jumping = true;
+        yield return new WaitForSeconds(0.5f);
+        jumping = false;
     }
 
     //sempre que o analogico muda de posicao
@@ -162,21 +164,27 @@ public class PlayerMovement : NetworkBehaviour
             //isto são os raycasts, vê já o que ta la em baixo que assim ler o resto vai ser mais facil
             check_state();
             float step = 0.0001f;
-            //gravidade
-            velocity.y += gravity * Time.deltaTime;
-
+            Debug.Log(current_state);
+            Debug.Log("velocity y" + velocity.y);
             //isto e para dar resolver o estado do jogador
+
             switch (current_state)
             {
                 case Estadoplayer.GROUNDED:
-                    if (velocity.y == 0)
-                    {
+                    if (!jumping)
                         velocity.y = -1f;
-                    }
+                    else
+                        controller.Move(velocity * Time.deltaTime);
+
                     controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.RUN:
                     //é praticamente igual ao walk, ams se depois tivermos animacoes de correr e so meter aqui
+                    if (!jumping)
+                        velocity.y = -1f;
+                    else
+                        controller.Move(velocity * Time.deltaTime);
+
                     controller.Move(move * speed * Time.deltaTime);
                     break;
                 case Estadoplayer.WRUNNING:
@@ -191,7 +199,7 @@ public class PlayerMovement : NetworkBehaviour
                     step = step + 0.001f;
                     break;
                 case Estadoplayer.WCLIMBING:
-                   //WCLIMBING é wall climbing
+                    //WCLIMBING é wall climbing
                     if (flagwallclimbing == false)
                     {
                         //Debug.Log(velocity.y);
