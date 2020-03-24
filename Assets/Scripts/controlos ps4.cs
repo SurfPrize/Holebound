@@ -65,6 +65,14 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5783a45-43c6-4c10-89e2-09b592ca4b8a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -309,6 +317,17 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3c90b8b-8bc3-4b89-a3bf-70d9ce3d2cfe"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -362,6 +381,7 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
         m_PlayercontrolsPS4_Olhar = m_PlayercontrolsPS4.FindAction("Olhar", throwIfNotFound: true);
         m_PlayercontrolsPS4_Jump = m_PlayercontrolsPS4.FindAction("Jump", throwIfNotFound: true);
         m_PlayercontrolsPS4_Run = m_PlayercontrolsPS4.FindAction("Run", throwIfNotFound: true);
+        m_PlayercontrolsPS4_Dash = m_PlayercontrolsPS4.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -417,6 +437,7 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayercontrolsPS4_Olhar;
     private readonly InputAction m_PlayercontrolsPS4_Jump;
     private readonly InputAction m_PlayercontrolsPS4_Run;
+    private readonly InputAction m_PlayercontrolsPS4_Dash;
     public struct PlayercontrolsPS4Actions
     {
         private @Controlosps4 m_Wrapper;
@@ -427,6 +448,7 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
         public InputAction @Olhar => m_Wrapper.m_PlayercontrolsPS4_Olhar;
         public InputAction @Jump => m_Wrapper.m_PlayercontrolsPS4_Jump;
         public InputAction @Run => m_Wrapper.m_PlayercontrolsPS4_Run;
+        public InputAction @Dash => m_Wrapper.m_PlayercontrolsPS4_Dash;
         public InputActionMap Get() { return m_Wrapper.m_PlayercontrolsPS4; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -454,6 +476,9 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 @Run.started -= m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface.OnRun;
+                @Dash.started -= m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_PlayercontrolsPS4ActionsCallbackInterface = instance;
             if (instance != null)
@@ -476,6 +501,9 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -515,5 +543,6 @@ public class @Controlosps4 : IInputActionCollection, IDisposable
         void OnOlhar(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

@@ -408,7 +408,6 @@ GameObject:
   - component: {fileID: 5580927369954443844}
   - component: {fileID: -3224507994038465605}
   - component: {fileID: 3805945233712013142}
-  - component: {fileID: 3203784980445118469}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -459,7 +458,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 7cbd973fdd005fe488300ef6ab449df5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -599,20 +598,6 @@ MonoBehaviour:
   cclip: 0
   shootspeed: 2
   reload_speed: 0.4
---- !u!114 &3203784980445118469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4686715508509576186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cea19a6c2bfe11489459e173fc6c554, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives: 3
-  outofbounds_limit: -50
 --- !u!1001 &4131950871023477136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -779,6 +764,11 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3721677802364938116, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 64ff9b3678df9644789725c4aeef64b3, type: 2}
     - target: {fileID: 3721677802364938118, guid: 5cb2fc23747c70644ab8b27d1bdb2c88,
         type: 3}
       propertyPath: m_LocalPosition.x
