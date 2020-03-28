@@ -216,7 +216,11 @@ public class PlayerMovement : NetworkBehaviour
             check_state();
             float step = 0.0001f;
             Debug.Log(current_state);
-            Debug.Log("velocity y" + velocity.y);
+            //Debug.Log("velocity y" + velocity.y);
+            Debug.Log(CheckGround()+" checkground");
+            Debug.Log(CheckWallD() + " CheckWallD");
+            Debug.Log(CheckWallE() + " CheckWallE");
+            Debug.Log(CheckWallFrente() + " CheckWallFrente");
             //isto e para dar resolver o estado do jogador
 
             switch (current_state)

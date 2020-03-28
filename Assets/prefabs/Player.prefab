@@ -521,12 +521,13 @@ MonoBehaviour:
   groundDistance: 1
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4097
   WallCheck: {fileID: 922586300903092088}
-  WallDistance: 0.7
+  WallDistance: 1.5
   wallMask:
     serializedVersion: 2
     m_Bits: 4096
+  speeddash: 20
 --- !u!114 &4952156654754244465
 MonoBehaviour:
   m_ObjectHideFlags: 0
